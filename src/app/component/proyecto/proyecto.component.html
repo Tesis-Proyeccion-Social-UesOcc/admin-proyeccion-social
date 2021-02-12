@@ -1,9 +1,49 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-  <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
-    <th mat-header-cell *matHeaderCellDef> {{column}} </th>
-    <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
-  </ng-container>
+<div>
+  <app-agregar-proyecto></app-agregar-proyecto>
+</div>
+<br/>
+<nz-table>
+  <thead>
+  <tr>
+    <th nzWidth="30%">ID</th>
+    <th>Proyecto</th>
+    <th>Duracion</th>
+    <th>Tutor</th>
+    <th>Interno</th>
+    <th>Accion</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of dataSource" class="editable-row">
+    <td>{{ data.id }}</td>
+    <td>{{ data.nombre }}</td>
+    <td>{{ data.duracion}}</td>
+    <td>{{ data.personal}}</td>
+    <td>{{ data.interno}}</td>
+    <td>
+      <a (click)="showModal(data.id)"><span>Mostrar Detalle</span></a>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
 
-  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-  <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
-</table>
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Integrantes del proyecto" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk() ">
+  <ng-container *nzModalContent>
+    <nz-table>
+      <thead>
+      <tr>
+        <th nzWidth="30%">DUE</th>
+        <th>Horas de progreso</th>
+        <th>Servicio completo</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of studentProject" class="editable-row">
+        <td>{{ data.carnet }}</td>
+        <td>{{ data.horasProgreso }}</td>
+        <td>{{ data.servicioCompleto}}</td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </ng-container>
+</nz-modal>
