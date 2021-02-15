@@ -53,7 +53,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {NZ_I18N, NzI18nModule} from 'ng-zorro-antd/i18n';
 import { es_ES } from 'ng-zorro-antd/i18n';
-import { registerLocaleData } from '@angular/common';
+import {CommonModule, registerLocaleData} from '@angular/common';
 import es from '@angular/common/locales/es';
 import { AgregarProyectoComponent } from './component/proyecto/agregar-proyecto/agregar-proyecto.component';
 import {NzPipesModule} from 'ng-zorro-antd/pipes';
@@ -110,7 +110,6 @@ import {NzDatePickerModule} from 'ng-zorro-antd/date-picker';
 import {NzCollapseModule} from 'ng-zorro-antd/collapse';
 import {NzCommentModule} from 'ng-zorro-antd/comment';
 import {NzCascaderModule} from 'ng-zorro-antd/cascader';
-import {NzCheckboxModule} from 'ng-zorro-antd/checkbox';
 import {NzCarouselModule} from 'ng-zorro-antd/carousel';
 import {NzCardModule} from 'ng-zorro-antd/card';
 import {NzCalendarModule} from 'ng-zorro-antd/calendar';
@@ -124,6 +123,7 @@ import {NzAnchorModule} from 'ng-zorro-antd/anchor';
 import {NzAlertModule} from 'ng-zorro-antd/alert';
 import {NzAffixModule} from 'ng-zorro-antd/affix';
 import { ProyectoDetalleComponent } from './component/proyecto/proyecto-detalle/proyecto-detalle.component';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 
 registerLocaleData(es);
 
@@ -139,9 +139,10 @@ registerLocaleData(es);
     ProyectoDetalleComponent
   ],
   imports: [
+    FormsModule,
+    NzCheckboxModule,
     MatDialogModule,
     BrowserAnimationsModule,
-    FormsModule,
     HttpClientModule,
     MatNativeDateModule,
     ReactiveFormsModule,
@@ -152,7 +153,6 @@ registerLocaleData(es);
     BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
     MatButtonModule,
     MatIconModule,
     MatDividerModule,
@@ -222,7 +222,6 @@ registerLocaleData(es);
     NzCardModule,
     NzCarouselModule,
     NzCascaderModule,
-    NzCheckboxModule,
     NzCollapseModule,
     NzCommentModule,
     NzDatePickerModule,
@@ -276,7 +275,8 @@ registerLocaleData(es);
     NzUploadModule,
     NzWaveModule,
     NzResizableModule,
-    NzPipesModule
+    NzPipesModule,
+    CommonModule
   ],
   providers: [{ provide: NZ_I18N, useValue: es_ES }],
   bootstrap: [AppComponent]

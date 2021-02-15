@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {PaginationInterface} from '../../model/pagination-interface';
+import {ServiceResponseInterface} from '../../model/service-response-interface';
 
 
 @Injectable({
@@ -9,9 +10,18 @@ import {PaginationInterface} from '../../model/pagination-interface';
 })
 export class ProjectDataService {
 
+  private domainLocal: string = 'http://localhost:8080';
   constructor(private httpClient: HttpClient) { }
 
   getProjets(page = 0, size = 10): Observable<PaginationInterface> {
-    return this.httpClient.get<PaginationInterface>(` http://localhost:8080/proyeccion-social/api/proyectos?page=${page}&size=${size}`);
+    return this.httpClient.get<PaginationInterface>(` ${this.domainLocal}/proyeccion-social/api/proyectos?page=${page}&size=${size}`);
+  }
+
+  getDepartments(): Observable<ServiceResponseInterface> {
+    return this.httpClient.get<ServiceResponseInterface >(` ${this.domainLocal}/proyeccion-social/api/departamentos`);
+  }
+
+  getInternalPersonal(id: number): Observable<ServiceResponseInterface> {
+    return this.httpClient.get<ServiceResponseInterface >(` ${this.domainLocal}/proyeccion-social/api/personal/findByIdDepartamento/${id}`);
   }
 }
