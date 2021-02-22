@@ -3,22 +3,28 @@
   <ng-container *nzModalContent>
     <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
       <nz-form-item nz-row class="register-area">
-        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="proyecto" nzRequired nzTooltipTitle="Escribe el nombre completo del proyecto">Proyecto</nz-form-label>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="proyecto" nzRequired
+                       nzTooltipTitle="Escribe el nombre completo del proyecto">Proyecto
+        </nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Porfavor ingrese el nombre del proyecto">
-         <textarea rows="4" nz-input id="proyecto" formControlName="proyecto" placeholder="Nombre de Proyecto"></textarea>
+          <textarea rows="4" nz-input id="proyecto" formControlName="proyecto"
+                    placeholder="Nombre de Proyecto"></textarea>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item nz-row class="register-area">
         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="duracion" nzRequired>Duración (horas)</nz-form-label>
-        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Porfavor ingrese la duracion del proyecto en horas mayor a 100!">
-          <input nz-input type="number" id="duracion" formControlName="duracion" (ngModelChange)="updateConfirmValidator()" />
+        <nz-form-control [nzSm]="14" [nzXs]="24"
+                         nzErrorTip="Porfavor ingrese la duracion del proyecto en horas mayor a 100!">
+          <input nz-input type="number" id="duracion" formControlName="duracion"
+                 (ngModelChange)="updateConfirmValidator()"/>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item *ngFor="let control of listOfControl; let i = index" nz-row class="register-area">
-        <nz-form-label [nzSm]="6" [nzXs]="24"  *ngIf="i == 0" [nzFor]="control.controlInstance">Estudiantes </nz-form-label>
+        <nz-form-label [nzSm]="6" [nzXs]="24" *ngIf="i == 0" [nzFor]="control.controlInstance">Estudiantes
+        </nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24"
-          [nzOffset]="i == 0 ? 0 : 4"
-          nzErrorTip="Porfavor ingrese DUES validos ya registrados"
+                         [nzOffset]="i == 0 ? 0 : 4"
+                         nzErrorTip="Porfavor ingrese DUES validos ya registrados"
         >
           <input
             class="passenger-input"
@@ -42,23 +48,27 @@
       <nz-form-item nz-row class="register-area">
         <nz-form-control [nzSpan]="14" [nzOffset]="6">
           <p style="margin-bottom: 20px;">
-            <input (click)="isInternalPersonal()" [ngModel]="internalPersonal" type="checkbox">
-              {{ internalPersonal ? 'Tutor Externo' : 'Tutor Interno' }}
+            <input (click)="isInternalPersonal()" type="checkbox" formControlName="agree">
+            {{ internalPersonal ? 'Tutor Externo' : 'Tutor Interno' }}
           </p>
         </nz-form-control>
       </nz-form-item>
 
+      <div *ngIf="!internalPersonal  else internalPersonalTemplate">
+        <nz-form-item nz-row class="register-area">
+          <nz-form-control [nzSpan]="14" [nzOffset]="6">
+
+            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selecciona un Departamento"
+                       [(ngModel)]="departmentSelectedValue">
+              <nz-option nzLabel="{{department.nombre}}" nzValue="{{department.id}}"
+                         *ngFor="let department of departments"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
       <nz-form-item nz-row class="register-area">
         <nz-form-control [nzSpan]="14" [nzOffset]="6">
-          <div *ngIf="!internalPersonal else internalPersonalTemplate">
-
-          </div>
-        </nz-form-control>
-      </nz-form-item>
-
-      <nz-form-item nz-row class="register-area">
-        <nz-form-control [nzSpan]="14" [nzOffset]="6">
-          <button nz-button nzType="primary">Register</button>
+          <button nz-button nzType="primary">Registrar Proyecto</button>
         </nz-form-control>
       </nz-form-item>
     </form>
@@ -67,12 +77,25 @@
 </nz-modal>
 
 <ng-template #internalPersonalTemplate>
-  <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selecciona un Departamento" [(ngModel)]="departmentSelectedValue"  (click)="onRetrieveInternalPersonal()" >
-    <nz-option nzLabel="{{department.nombre}}" nzValue="{{department.id}}"  *ngFor="let department of departments; let index" ></nz-option>
-  </nz-select>
+  <nz-form-item nz-row class="register-area">
+    <nz-form-control [nzSpan]="14" [nzOffset]="6">
+      <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selecciona un Departamento"
+                 [(ngModel)]="departmentSelectedValue"
+                 (ngModelChange)="onRetrieveInternalPersonal($event)">
+        <nz-option nzLabel="{{department.nombre}}" nzValue="{{department.id}}"
+                   *ngFor="let department of departments; let index"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
 
-  <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selecciona a un tutor interno" [(ngModel)]="internalPersonalSelectedValue" [disabled]="internalPersonalCombobox">
-    <nz-option nzLabel="{{personal.nombre}} {{personal.apellido}}" nzValue="{{personal.id}}"  *ngFor="let personal of internalPersonalData"></nz-option>
-  </nz-select>
-
+  <nz-form-item nz-row class="register-area">
+    <nz-form-control [nzSpan]="14" [nzOffset]="6">
+      <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selecciona a un tutor interno"
+                 [(ngModel)]="internalPersonalSelectedValue" [disabled]="internalPersonalCombobox">
+        <nz-option nzLabel="{{personal.nombre}} {{personal.apellido}}" nzValue="{{personal.id}}"
+                   *ngFor="let personal of internalPersonalData"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
 </ng-template>
+

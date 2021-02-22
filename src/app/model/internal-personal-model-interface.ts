@@ -5,4 +5,5 @@ export interface InternalPersonalModelInterface {
   nombre: string;
   apellido: string;
   departamento: DepartamentInterface;
+  descripcion: string;
 }

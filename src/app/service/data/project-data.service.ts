@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {PaginationInterface} from '../../model/pagination-interface';
 import {ServiceResponseInterface} from '../../model/service-response-interface';
+import {ProjectModelInterface} from '../../model/project-model-interface';
 
 
 @Injectable({
@@ -23,5 +24,13 @@ export class ProjectDataService {
 
   getInternalPersonal(id: number): Observable<ServiceResponseInterface> {
     return this.httpClient.get<ServiceResponseInterface >(` ${this.domainLocal}/proyeccion-social/api/personal/findByIdDepartamento/${id}`);
+  }
+
+  getExternalPersonal(): Observable<ServiceResponseInterface> {
+    return this.httpClient.get<ServiceResponseInterface >(` ${this.domainLocal}/proyeccion-social/api/personal?interno=0`);
+  }
+
+  createProject(project: ProjectModelInterface): Observable<ProjectModelInterface> {
+    return this.httpClient.post<ProjectModelInterface>(` ${this.domainLocal}/proyeccion-social/api/proyectos`, project);
   }
 }

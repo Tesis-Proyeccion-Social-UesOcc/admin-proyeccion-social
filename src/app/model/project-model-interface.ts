@@ -5,6 +5,6 @@ export interface ProjectModelInterface {
     duracion: string;
     interno: boolean;
     nombre: string;
-    personal: string;
-    estudiantes: StudentModelInterface[];
+    personal: any;
+    estudiantes: any[];
 }
