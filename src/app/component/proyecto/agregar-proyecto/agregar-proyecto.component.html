@@ -58,10 +58,10 @@
         <nz-form-item nz-row class="register-area">
           <nz-form-control [nzSpan]="14" [nzOffset]="6">
 
-            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selecciona un Departamento"
-                       [(ngModel)]="departmentSelectedValue">
-              <nz-option nzLabel="{{department.nombre}}" nzValue="{{department.id}}"
-                         *ngFor="let department of departments"></nz-option>
+            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selecciona un tutor externo"
+                         formControlName="personal">
+              <nz-option nzLabel="{{personal.nombre}} {{personal.apellido}} | {{personal.descripcion}}" nzValue="{{personal.id}}"
+                         *ngFor="let personal of externalPersonalData" ></nz-option>
             </nz-select>
           </nz-form-control>
         </nz-form-item>

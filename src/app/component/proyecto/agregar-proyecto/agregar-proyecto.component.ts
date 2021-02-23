@@ -90,13 +90,15 @@ export class AgregarProyectoComponent implements OnInit {
         this.estudiante.push(this.validateForm.controls[i].value);
       }
     }
-    console.log(`Tutor  interno ${this.internalPersonalSelectedValue}; externo ${this.departmentSelectedValue}`);
+    const dataForm = this.validateForm.value;
+    console.log('dataform', dataForm);
+    console.log(`Tutor  interno ${this.internalPersonalSelectedValue}; externo ${dataForm['personal']}`);
     let project: ProjectModelInterface;
 
 
     console.log('personal id ' + this.personalId);
     project = {
-      personal: this.internalPersonalSelectedValue,
+      personal: dataForm['personal'],
       nombre: this.validateForm.controls['proyecto'].value,
       duracion: this.validateForm.controls['duracion'].value,
       interno: !this.validateForm.controls['agree'].value,
@@ -105,7 +107,7 @@ export class AgregarProyectoComponent implements OnInit {
     };
     console.log(`proyect`, project);
 
-    this.projectProvider.createProject(project).subscribe( response => {
+   this.projectProvider.createProject(project).subscribe( response => {
       console.log('resultado guardar', response);
     }, error => console.log('Error al guardar personas ',error));
   }
