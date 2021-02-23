@@ -124,9 +124,15 @@ import {NzAlertModule} from 'ng-zorro-antd/alert';
 import {NzAffixModule} from 'ng-zorro-antd/affix';
 import { ProyectoDetalleComponent } from './component/proyecto/proyecto-detalle/proyecto-detalle.component';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { EstudianteComponent } from './component/estudiante/estudiante.component';
+import {RouterModule} from '@angular/router';
 
 registerLocaleData(es);
 
+export const routes =  [
+  { path: 'Proyectos', component: ProyectoComponent, label: 'Proyectos' },
+  { path: 'Estudiantes', component: EstudianteComponent, label: 'Estudiantes' }
+];
 
 // @ts-ignore
 @NgModule({
@@ -136,7 +142,8 @@ registerLocaleData(es);
     MatBoardComponent,
     ProyectoComponent,
     AgregarProyectoComponent,
-    ProyectoDetalleComponent
+    ProyectoDetalleComponent,
+    EstudianteComponent
   ],
   imports: [
     FormsModule,
