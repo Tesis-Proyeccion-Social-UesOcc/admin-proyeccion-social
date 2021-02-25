@@ -1,4 +1,4 @@
-<h1 class="mat-h1">Proyectos</h1>
+<h1 class="mat-h1">Modulo de Proyectos</h1>
 <div>
   <app-agregar-proyecto></app-agregar-proyecto>
 </div>
@@ -10,7 +10,7 @@
     <th>Proyecto</th>
     <th>Duracion</th>
     <th>Tutor</th>
-    <th>Interno</th>
+    <th>Tipo de Personal</th>
     <th>Accion</th>
   </tr>
   </thead>
@@ -18,9 +18,9 @@
   <tr *ngFor="let data of dataSource" class="editable-row">
     <td>{{ data.id }}</td>
     <td>{{ data.nombre }}</td>
-    <td>{{ data.duracion}}</td>
+    <td>{{ data.duracion}} horas</td>
     <td>{{ data.personal}}</td>
-    <td>{{ data.interno}}</td>
+    <td>{{ data.interno === true ? 'Tutor Interno' : 'Tutor Externo'}}</td>
     <td>
       <a (click)="showModal(data.id)"><span>Mostrar Detalle</span></a>
     </td>

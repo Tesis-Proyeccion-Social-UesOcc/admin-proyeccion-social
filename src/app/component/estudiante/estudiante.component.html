@@ -1,1 +1,30 @@
-<p>estudiante works!</p>
+<h1 class="mat-h1">Modulo de Estudiantes</h1>
+<div>
+  <app-agregar-proyecto></app-agregar-proyecto>
+</div>
+<br/>
+<nz-switch [ngModel]="true" [nzCheckedChildren]="checkedTemplate" [nzUnCheckedChildren]="unCheckedTemplate" (click)=" findAllStudentsByStatus()"></nz-switch>
+<ng-template #checkedTemplate><i nz-icon nzType="check"></i></ng-template>
+<ng-template #unCheckedTemplate><i nz-icon nzType="close"></i></ng-template>
+<nz-table>
+  <thead>
+  <tr>
+    <th nzWidth="30%">DUE</th>
+    <th>Servicio de Horas Sociales</th>
+    <th>Horas de Progreso</th>
+    <th>Accion</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of dataSource" class="editable-row">
+    <td>{{ data.carnet }}</td>
+    <td><nz-progress [nzPercent]=data.porcentaje nzType="circle" [nzWidth]="40"></nz-progress></td>
+    <td>{{ data.horasProgreso}} horas</td>
+    <td>
+      <a ><span>Mostrar Detalle</span></a>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+
+
