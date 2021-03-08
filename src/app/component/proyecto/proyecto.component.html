@@ -3,48 +3,92 @@
   <app-agregar-proyecto></app-agregar-proyecto>
 </div>
 <br/>
-<nz-table>
-  <thead>
-  <tr>
-    <th nzWidth="30%">ID</th>
-    <th>Proyecto</th>
-    <th>Duracion</th>
-    <th>Tutor</th>
-    <th>Tipo de Personal</th>
-    <th>Accion</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let data of dataSource" class="editable-row">
-    <td>{{ data.id }}</td>
-    <td>{{ data.nombre }}</td>
-    <td>{{ data.duracion}} horas</td>
-    <td>{{ data.personal}}</td>
-    <td>{{ data.interno === true ? 'Tutor Interno' : 'Tutor Externo'}}</td>
-    <td>
-      <a (click)="showModal(data.id)"><span>Mostrar Detalle</span></a>
-    </td>
-  </tr>
-  </tbody>
-</nz-table>
 
-<nz-modal [(nzVisible)]="isVisible" nzTitle="Integrantes del proyecto" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk() ">
-  <ng-container *nzModalContent>
-    <nz-table>
-      <thead>
-      <tr>
-        <th nzWidth="30%">DUE</th>
-        <th>Horas de progreso</th>
-        <th>Servicio completo</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let data of studentProject" class="editable-row">
-        <td>{{ data.carnet }}</td>
-        <td>{{ data.horasProgreso }}</td>
-        <td>{{ data.servicioCompleto}}</td>
-      </tr>
-      </tbody>
-    </nz-table>
-  </ng-container>
-</nz-modal>
+<mat-tab-group dynamicHeight color="warn" mat-align-tabs="center">
+
+  <mat-tab label="Por Aprobar">
+    <div >
+      <nz-table>
+        <thead>
+        <tr>
+          <th nzWidth="30%">Proyecto</th>
+          <th>Duracion</th>
+          <th>Estado</th>
+          <th>Fecha de Creacion</th>
+          <th>Tutor</th>
+          <th>Tipo de Personal</th>
+          <th>Accion</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of dataSource" class="editable-row">
+          <td> {{ data.nombre }}</td>
+          <td>{{ data.duracion}} horas</td>
+          <td>{{ data.status}}</td>
+          <td>{{ data.fechaCreacion }} </td>
+          <td>{{ data.personal}}</td>
+          <td>{{ data.interno === true ? 'Tutor Interno' : 'Tutor Externo'}}</td>
+          <td>
+            <div style="padding: 8px 8px 0px">
+
+              <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="primary">
+                <mat-icon>done_outline</mat-icon>
+              </button>
+              <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="warn"><mat-icon>cancel</mat-icon></button>
+              <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="basic" (click)="showModal(data.id)">
+                <mat-icon>visibility</mat-icon>
+              </button>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+
+      <nz-modal [(nzVisible)]="isVisible" nzTitle="Integrantes del proyecto" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk() ">
+        <ng-container *nzModalContent>
+          <nz-table>
+            <thead>
+            <tr>
+              <th nzWidth="30%">DUE</th>
+              <th>Horas de progreso</th>
+              <th>Servicio completo</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let data of studentProject" class="editable-row">
+              <td>{{ data.carnet }}</td>
+              <td>{{ data.horasProgreso }}</td>
+              <td>{{ data.servicioCompleto}}</td>
+            </tr>
+            </tbody>
+          </nz-table>
+        </ng-container>
+      </nz-modal>
+
+    </div>
+  </mat-tab>
+
+  <mat-tab label="En Curso">
+    <div class="example-small-box mat-elevation-z4">
+      Small content
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Completados">
+    <div class="example-small-box mat-elevation-z4">
+      Small content
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Rechazados">
+    <div class="example-small-box mat-elevation-z4">
+      Small content
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Abandonados">
+    <div class="example-small-box mat-elevation-z4">
+      Small content
+    </div>
+  </mat-tab>
+</mat-tab-group>

@@ -3,6 +3,7 @@ import {ProjectModelInterface} from '../../model/project-model-interface';
 import {ProjectDataService} from '../../service/data/project-data.service';
 import {PaginationInterface} from '../../model/pagination-interface';
 import {StudentModelInterface} from '../../model/student-model-interface';
+import {ProjectRequestInterface} from '../../model/request/ProjectRequest';
 
 @Component({
   selector: 'app-proyecto',
@@ -10,6 +11,9 @@ import {StudentModelInterface} from '../../model/student-model-interface';
   styleUrls: ['./proyecto.component.css']
 })
 export class ProyectoComponent implements OnInit {
+
+  array = [1, 2, 3, 4];
+
   dataSource: ProjectModelInterface[] = [];
   studentProject: StudentModelInterface [] = [];
   isVisible = false;
@@ -25,7 +29,7 @@ export class ProyectoComponent implements OnInit {
   displayedColumns: string[] = ['id', 'nombre', 'duracion', 'interno', 'personal'];
   columnsToDisplay: string[] = this.displayedColumns.slice();
   constructor(private projectProvider: ProjectDataService) {
-    this.projectProvider.getProjets(0, 5).subscribe(
+    this.projectProvider.getProjets(0, 5, 1).subscribe(
       (projects: PaginationInterface) => {
         this.pagination = projects;
         this.dataSource = projects.content;
@@ -52,7 +56,7 @@ export class ProyectoComponent implements OnInit {
     this.isVisible = false;
   }
 
-  getProjects(idProject: number): void {
+  getProjects(idProject: number, status: number = 1): void {
     console.log('project id' + idProject);
     this.dataSource.find(proyecto =>  {
       if (proyecto.id === idProject) {

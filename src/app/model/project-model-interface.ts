@@ -1,4 +1,8 @@
-import {StudentModelInterface} from './student-model-interface';
+interface ProjectStatus {
+  id: number;
+  status: string;
+  descripcion: string;
+}
 
 export interface ProjectModelInterface {
     id: number;
@@ -7,4 +11,7 @@ export interface ProjectModelInterface {
     nombre: string;
     personal: any;
     estudiantes: any[];
+    fechaCreacion: Date;
+    fechaModificacion: Date;
+    status: ProjectStatus;
 }

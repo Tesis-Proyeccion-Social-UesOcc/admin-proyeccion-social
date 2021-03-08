@@ -1,0 +1,11 @@
+#settings {
+  margin-right: 50px;
+  font-size: 300px;
+}
+[nz-button] {
+  margin-right: 8px;
+  margin-bottom: 12px;
+}
+.modal-body {
+  max-height: 80vh; overflow-y: auto;
+}

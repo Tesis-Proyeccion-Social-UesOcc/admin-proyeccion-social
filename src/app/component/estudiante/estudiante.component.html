@@ -1,7 +1,4 @@
 <h1 class="mat-h1">Modulo de Estudiantes</h1>
-<div>
-  <app-agregar-proyecto></app-agregar-proyecto>
-</div>
 <br/>
 <nz-switch [ngModel]="true" [nzCheckedChildren]="checkedTemplate" [nzUnCheckedChildren]="unCheckedTemplate" (click)=" findAllStudentsByStatus()"></nz-switch>
 <ng-template #checkedTemplate><i nz-icon nzType="check"></i></ng-template>
@@ -10,8 +7,8 @@
   <thead>
   <tr>
     <th nzWidth="30%">DUE</th>
-    <th>Servicio de Horas Sociales</th>
-    <th>Horas de Progreso</th>
+    <th>Progreso del Servicio Social</th>
+    <th>Tiempo obtenido</th>
     <th>Accion</th>
   </tr>
   </thead>
@@ -21,10 +18,34 @@
     <td><nz-progress [nzPercent]=data.porcentaje nzType="circle" [nzWidth]="40"></nz-progress></td>
     <td>{{ data.horasProgreso}} horas</td>
     <td>
-      <a ><span>Mostrar Detalle</span></a>
+      <div style="padding: 8px 8px 0px">
+        <i nz-button nz-icon [nzType]="'eye'" [nzTheme]="'fill'" class="settings" (click)="showModal(data.carnet)"></i>
+        <i nz-button nz-icon [nzType]="'setting'" [nzTheme]="'fill'" class="settings"></i>
+      </div>
     </td>
   </tr>
   </tbody>
 </nz-table>
 
-
+<nz-modal calss="myModal" [(nzVisible)]="isVisible" nzTitle="Estados de requerimientos" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk() ">
+  <ng-container *nzModalContent>
+    <nz-table >
+      <thead>
+      <tr>
+        <th>Requerimiento</th>
+        <th>Entregado</th>
+        <th>Aprobado</th>
+        <th>Accion</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of requirementStatus" class="editable-row">
+        <td>{{ data.requerimiento.documento.nombre }}</td>
+        <td>{{ data.entregado == true ?  data.fechaEntrega: 'No Entregado'}} </td>
+        <td>{{ data.aprobado == true  ?  data.fechaAprobacion  : 'No Aprobado'}} </td>
+       <td><button nz-button nzType="danger" nzShape="round" [disabled]="data.aprobado">Aprobar</button> </td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </ng-container>
+</nz-modal>

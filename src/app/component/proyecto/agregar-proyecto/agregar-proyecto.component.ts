@@ -5,6 +5,7 @@ import {ServiceResponseInterface} from '../../../model/service-response-interfac
 import {DepartamentInterface} from '../../../model/department-model-interface';
 import {InternalPersonalModelInterface} from '../../../model/internal-personal-model-interface';
 import {ProjectModelInterface} from '../../../model/project-model-interface';
+import {ProjectRequestInterface} from '../../../model/request/ProjectRequest';
 
 @Component({
   selector: 'app-agregar-proyecto',
@@ -26,6 +27,7 @@ export class AgregarProyectoComponent implements OnInit {
   internalPersonalData: InternalPersonalModelInterface [] = [];
   externalPersonalData: InternalPersonalModelInterface [] = [];
   estudiante: any[] = [];
+  projectRequest: ProjectRequestInterface[] = [];
   constructor(private fb: FormBuilder, private projectProvider: ProjectDataService) {
 
   }
@@ -93,12 +95,19 @@ export class AgregarProyectoComponent implements OnInit {
     const dataForm = this.validateForm.value;
     console.log('dataform', dataForm);
     console.log(`Tutor  interno ${this.internalPersonalSelectedValue}; externo ${dataForm['personal']}`);
-    let project: ProjectModelInterface;
+    let project: ProjectRequestInterface;
 
+    if (dataForm['personal'] !== null && dataForm['personal'] !== 0 ) {
+      this.personalId = dataForm['personal'];
+      console.log('Es personal externo');
+    } else {
+      console.log('Es personal interno');
+      this.personalId = this.internalPersonalSelectedValue;
+    }
 
     console.log('personal id ' + this.personalId);
     project = {
-      personal: dataForm['personal'],
+      personal: this.personalId,
       nombre: this.validateForm.controls['proyecto'].value,
       duracion: this.validateForm.controls['duracion'].value,
       interno: !this.validateForm.controls['agree'].value,
