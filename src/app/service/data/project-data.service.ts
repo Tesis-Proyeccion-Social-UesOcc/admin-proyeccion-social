@@ -34,4 +34,7 @@ export class ProjectDataService {
   createProject(project: ProjectRequestInterface): Observable<ProjectRequestInterface> {
     return this.httpClient.post<ProjectRequestInterface>(` ${this.domainLocal}/proyeccion-social/api/proyectos`, project);
   }
+  changeStatusProject(idProject: number, status: string): Observable<ProjectRequestInterface> {
+    return this.httpClient.put<ProjectRequestInterface>(` ${this.domainLocal}/proyeccion-social/api/proyectos?idProyecto=${idProject}&status=${status}`, null);
+  }
 }

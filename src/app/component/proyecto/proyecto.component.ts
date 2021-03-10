@@ -4,6 +4,7 @@ import {ProjectDataService} from '../../service/data/project-data.service';
 import {PaginationInterface} from '../../model/pagination-interface';
 import {StudentModelInterface} from '../../model/student-model-interface';
 import {ProjectRequestInterface} from '../../model/request/ProjectRequest';
+import {NzMessageService} from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-proyecto',
@@ -25,10 +26,10 @@ export class ProyectoComponent implements OnInit {
     totalPages: 0,
     content: 0
   };
-
   displayedColumns: string[] = ['id', 'nombre', 'duracion', 'interno', 'personal'];
   columnsToDisplay: string[] = this.displayedColumns.slice();
-  constructor(private projectProvider: ProjectDataService) {
+
+  constructor(private projectProvider: ProjectDataService, private message: NzMessageService) {
     this.projectProvider.getProjets(0, 5, 1).subscribe(
       (projects: PaginationInterface) => {
         this.pagination = projects;
@@ -65,4 +66,70 @@ export class ProyectoComponent implements OnInit {
     });
   }
 
+  onApprovedProject(statusId: number = 1): void {
+    this.projectProvider.getProjets(0, 5, statusId).subscribe(
+      (projects: PaginationInterface) => {
+        this.pagination = projects;
+        this.dataSource = projects.content;
+        console.log(`Datos de Proyectos, statusId: ${statusId}`, this.dataSource);
+      }
+    );
+  }
+
+  createMessage(type: string): void {
+    this.message.create(type, `This is a message of ${type}`);
+  }
+
+  getProjectByStatus(status: number): void {
+    this.projectProvider.getProjets(0, 5, status).subscribe(
+      (projects: PaginationInterface) => {
+        this.pagination = projects;
+        this.dataSource = projects.content;
+        console.log('Datos de Proyectos ', this.dataSource);
+      }
+    );
+  }
+  onRejectedProject(idProject: number): void {
+    this.projectProvider.changeStatusProject(idProject, 'Rechazado').subscribe( response => {
+      console.log('resultado guardar', response);
+      this.getProjectByStatus(1);
+      this.message.create('warning', `Se Rechazo el proyecto`);
+    }, error => {
+      console.log('Error al rechazar proyecto ', error);
+      this.message.create('error', `Error al tratar de rechazar el proyecto`);
+    });
+  }
+
+  onCompleteProject(idProject: number): void {
+    this.projectProvider.changeStatusProject(idProject, 'Completado').subscribe( response => {
+      console.log('resultado guardar', response);
+      this.getProjectByStatus(2);
+      this.message.create('success', `Se Completo el proyecto`);
+    }, error => {
+      console.log('Error al completar proyecto ', error);
+      this.message.create('error', `Error al tratar de completar el proyecto`);
+    });
+  }
+
+  onRetiredProject(idProject: number): void {
+    this.projectProvider.changeStatusProject(idProject, 'Retiro').subscribe( response => {
+      console.log('resultado guardar', response);
+      this.getProjectByStatus(3);
+      this.message.create('warning', `Se dio de baja el proyecto`);
+    }, error => {
+      console.log('Error al hacer un retiro del proyecto ', error);
+      this.message.create('error', `Error al tratar de retirar el proyecto`);
+    });
+  }
+
+  onApproveProject(idProject: number): void {
+    this.projectProvider.changeStatusProject(idProject, 'En_Proceso').subscribe( response => {
+      console.log('resultado guardar', response);
+      this.getProjectByStatus(1);
+      this.message.create('success', `Se Aprobo el proyecto`);
+    }, error => {
+      console.log('Error al aprobar el proyecto ', error);
+      this.message.create('error', `Error al tratar de aprobar el proyecto`);
+    });
+  }
 }
