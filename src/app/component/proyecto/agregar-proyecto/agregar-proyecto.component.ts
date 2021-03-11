@@ -4,8 +4,8 @@ import {ProjectDataService} from '../../../service/data/project-data.service';
 import {ServiceResponseInterface} from '../../../model/service-response-interface';
 import {DepartamentInterface} from '../../../model/department-model-interface';
 import {InternalPersonalModelInterface} from '../../../model/internal-personal-model-interface';
-import {ProjectModelInterface} from '../../../model/project-model-interface';
 import {ProjectRequestInterface} from '../../../model/request/ProjectRequest';
+import {NzMessageService} from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-agregar-proyecto',
@@ -28,7 +28,7 @@ export class AgregarProyectoComponent implements OnInit {
   externalPersonalData: InternalPersonalModelInterface [] = [];
   estudiante: any[] = [];
   projectRequest: ProjectRequestInterface[] = [];
-  constructor(private fb: FormBuilder, private projectProvider: ProjectDataService) {
+  constructor(private fb: FormBuilder, private projectProvider: ProjectDataService, private message: NzMessageService) {
 
   }
 
@@ -118,9 +118,27 @@ export class AgregarProyectoComponent implements OnInit {
 
    this.projectProvider.createProject(project).subscribe( response => {
       console.log('resultado guardar', response);
-    }, error => console.log('Error al guardar personas ',error));
+      this.message.create('success', `Proyecto Creado con exito`);
+      this.isVisible = false;
+      this.reset();
+      this.estudiante = [];
+    }, error => {
+     this.estudiante = [];
+     console.log('Error al guardar personas ', error);
+     this.message.create('error', `Error al crear el proyecto \n ${error.message}`);
+   });
   }
-
+  reset(): void {
+    this.createForm();
+  }
+  createForm(): void{
+    this.validateForm = this.fb.group({
+      proyecto: [null, [Validators.required]],
+      duracion: [null, [Validators.required]],
+      agree: [false],
+      personal: [null, [Validators.required]]
+    });
+  }
   updateConfirmValidator(): void {
     /** wait for refresh value */
     Promise.resolve().then(() => this.validateForm.controls.checkPassword.updateValueAndValidity());
