@@ -12,7 +12,7 @@ import {ProjectRequestInterface} from '../../model/request/ProjectRequest';
 })
 export class ProjectDataService {
 
-  private domainLocal: string = 'http://localhost:8080';
+  private domainLocal: string = 'https://chatbot-proyeccion-social-uefy.rj.r.appspot.com';
   constructor(private httpClient: HttpClient) { }
 
   getProjets(page = 0, size = 10, statusId: number = 1): Observable<PaginationInterface> {

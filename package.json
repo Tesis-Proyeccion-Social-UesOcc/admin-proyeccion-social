@@ -10,6 +10,12 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
+  "engines": {
+    "node": "14.9"
+  },
+  "config": {
+  "unsafe-perm":true
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~11.1.2",

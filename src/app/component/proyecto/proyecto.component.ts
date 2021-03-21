@@ -5,6 +5,7 @@ import {PaginationInterface} from '../../model/pagination-interface';
 import {StudentModelInterface} from '../../model/student-model-interface';
 import {ProjectRequestInterface} from '../../model/request/ProjectRequest';
 import {NzMessageService} from 'ng-zorro-antd/message';
+import {NzUploadChangeParam, NzUploadFile} from 'ng-zorro-antd/upload';
 
 @Component({
   selector: 'app-proyecto',
@@ -14,10 +15,13 @@ import {NzMessageService} from 'ng-zorro-antd/message';
 export class ProyectoComponent implements OnInit {
 
   array = [1, 2, 3, 4];
+  uploading = false;
+  fileList: NzUploadFile[] = [];
 
   dataSource: ProjectModelInterface[] = [];
   studentProject: StudentModelInterface [] = [];
   isVisible = false;
+  isVisibleCompleted = false;
   pagination: PaginationInterface = {
     totalElement: 0,
     size: 0,
@@ -29,7 +33,7 @@ export class ProyectoComponent implements OnInit {
   displayedColumns: string[] = ['id', 'nombre', 'duracion', 'interno', 'personal'];
   columnsToDisplay: string[] = this.displayedColumns.slice();
 
-  constructor(private projectProvider: ProjectDataService, private message: NzMessageService) {
+  constructor(private projectProvider: ProjectDataService, private message: NzMessageService, private msg: NzMessageService) {
     this.projectProvider.getProjets(0, 5, 1).subscribe(
       (projects: PaginationInterface) => {
         this.pagination = projects;
@@ -47,14 +51,21 @@ export class ProyectoComponent implements OnInit {
     this.getProjects(id);
   }
 
+  showModalCompleted(id: number = 0): void {
+    this.isVisibleCompleted = true;
+    this.getProjects(id);
+  }
+
   handleOk(): void {
     console.log('Button ok clicked!');
     this.isVisible = false;
+    this.isVisibleCompleted = false;
   }
 
   handleCancel(): void {
     console.log('Button cancel clicked!');
     this.isVisible = false;
+    this.isVisibleCompleted = false;
   }
 
   getProjects(idProject: number, status: number = 1): void {
@@ -131,5 +142,18 @@ export class ProyectoComponent implements OnInit {
       console.log('Error al aprobar el proyecto ', error);
       this.message.create('error', `Error al tratar de aprobar el proyecto`);
     });
+  }
+
+
+  handleChange({ file, fileList }: NzUploadChangeParam): void {
+    const status = file.status;
+    if (status !== 'uploading') {
+      console.log(file, fileList);
+    }
+    if (status === 'done') {
+      this.msg.success(`${file.name} file uploaded successfully.`);
+    } else if (status === 'error') {
+      this.msg.error(`${file.name} file upload failed.`);
+    }
   }
 }

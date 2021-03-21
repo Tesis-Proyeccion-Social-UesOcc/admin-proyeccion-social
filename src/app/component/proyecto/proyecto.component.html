@@ -10,7 +10,7 @@
     <ng-template mat-tab-label>
       <span (click)="getProjectByStatus(1)">Por Aprobar</span>
     </ng-template>
-    <div >
+    <div>
       <nz-table>
         <thead>
         <tr>
@@ -34,11 +34,16 @@
           <td>
             <div style="padding: 8px 8px 0px">
 
-              <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="primary"  (click)="onApproveProject(data.id)">
+              <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="primary"
+                      (click)="onApproveProject(data.id)">
                 <mat-icon>done_outline</mat-icon>
               </button>
-              <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="warn" (click)="onRejectedProject(data.id)"><mat-icon>cancel</mat-icon></button>
-              <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="basic" (click)="showModal(data.id)">
+              <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="warn"
+                      (click)="onRejectedProject(data.id)">
+                <mat-icon>cancel</mat-icon>
+              </button>
+              <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="basic"
+                      (click)="showModal(data.id)">
                 <mat-icon>visibility</mat-icon>
               </button>
             </div>
@@ -51,11 +56,11 @@
     </div>
   </mat-tab>
 
-  <mat-tab label="En Curso" >
+  <mat-tab label="En Curso">
     <ng-template mat-tab-label>
       <span (click)="getProjectByStatus(2)">En Curso</span>
     </ng-template>
-    <div >
+    <div>
       <nz-table>
         <thead>
         <tr>
@@ -79,11 +84,16 @@
           <td>
             <div style="padding: 8px 8px 0px">
 
-              <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="primary"  (click)=" onCompleteProject(data.id)">
+              <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="primary"
+                      (click)=" onCompleteProject(data.id)">
                 <mat-icon>done_outline</mat-icon>
               </button>
-              <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="warn"  (click)=" onRetiredProject(data.id)" ><mat-icon>cancel</mat-icon></button>
-              <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="basic" (click)="showModal(data.id)">
+              <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="warn"
+                      (click)=" onRetiredProject(data.id)">
+                <mat-icon>cancel</mat-icon>
+              </button>
+              <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="basic"
+                      (click)="showModal(data.id)">
                 <mat-icon>visibility</mat-icon>
               </button>
             </div>
@@ -98,7 +108,7 @@
     <ng-template mat-tab-label>
       <span (click)="getProjectByStatus(3)">Completados</span>
     </ng-template>
-    <div >
+    <div>
       <nz-table>
         <thead>
         <tr>
@@ -121,7 +131,8 @@
           <td>{{ data.interno === true ? 'Tutor Interno' : 'Tutor Externo'}}</td>
           <td>
             <div style="padding: 8px 8px 0px">
-              <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="basic" (click)="showModal(data.id)">
+              <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="basic"
+                      (click)="showModalCompleted(data.id)">
                 <mat-icon>visibility</mat-icon>
               </button>
             </div>
@@ -136,7 +147,7 @@
     <ng-template mat-tab-label>
       <span (click)="getProjectByStatus(4)">Rechazados</span>
     </ng-template>
-    <div >
+    <div>
       <nz-table>
         <thead>
         <tr>
@@ -159,7 +170,8 @@
           <td>{{ data.interno === true ? 'Tutor Interno' : 'Tutor Externo'}}</td>
           <td>
             <div style="padding: 8px 8px 0px">
-              <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="basic" (click)="showModal(data.id)">
+              <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="basic"
+                      (click)="showModal(data.id)">
                 <mat-icon>visibility</mat-icon>
               </button>
             </div>
@@ -174,7 +186,7 @@
     <ng-template mat-tab-label>
       <span (click)="getProjectByStatus(5)">Abandonados</span>
     </ng-template>
-    <div >
+    <div>
       <nz-table>
         <thead>
         <tr>
@@ -197,7 +209,8 @@
           <td>{{ data.interno === true ? 'Tutor Interno' : 'Tutor Externo'}}</td>
           <td>
             <div style="padding: 8px 8px 0px">
-              <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="basic" (click)="showModal(data.id)">
+              <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="basic"
+                      (click)="showModal(data.id)">
                 <mat-icon>visibility</mat-icon>
               </button>
             </div>
@@ -210,7 +223,44 @@
 </mat-tab-group>
 
 
-<nz-modal [(nzVisible)]="isVisible" nzTitle="Integrantes del proyecto" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk() ">
+<nz-modal [(nzVisible)]="isVisibleCompleted" nzTitle="Integrantes del proyecto" (nzOnCancel)="handleCancel()"
+          (nzOnOk)="handleOk() ">
+  <ng-container *nzModalContent>
+    <nz-table>
+      <thead>
+      <tr>
+        <th nzWidth="30%">DUE</th>
+        <th>Horas de progreso</th>
+        <th>Servicio completo</th>
+        <th>Certificados</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of studentProject" class="editable-row">
+        <td>{{ data.carnet }}</td>
+        <td>{{ data.horasProgreso }}</td>
+        <td>{{ data.servicioCompleto ? 'Completo': 'Incompleto'}}</td>
+        <td>
+          <nz-upload
+          nzType="drag"
+          [nzMultiple]="true"
+          nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+          (nzChange)="handleChange($event)"
+        >
+          <p class="ant-upload-drag-icon">
+            <i nz-icon nzType="inbox"></i>
+          </p>
+          <p class="ant-upload-text">Click or drag file to this area to upload</p>
+        </nz-upload>
+        </td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </ng-container>
+</nz-modal>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Integrantes del proyecto" (nzOnCancel)="handleCancel()"
+          (nzOnOk)="handleOk() ">
   <ng-container *nzModalContent>
     <nz-table>
       <thead>
@@ -224,9 +274,10 @@
       <tr *ngFor="let data of studentProject" class="editable-row">
         <td>{{ data.carnet }}</td>
         <td>{{ data.horasProgreso }}</td>
-        <td>{{ data.servicioCompleto}}</td>
+        <td>{{ data.servicioCompleto ? 'Completo': 'Incompleto'}}</td>
       </tr>
       </tbody>
     </nz-table>
   </ng-container>
 </nz-modal>
+

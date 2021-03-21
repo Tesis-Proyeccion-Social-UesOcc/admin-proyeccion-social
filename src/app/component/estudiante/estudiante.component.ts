@@ -4,6 +4,8 @@ import {StudentDataService} from '../../service/data/student-data.service';
 import {StudentModelInterface} from '../../model/student-model-interface';
 import {RequirementStatusModelInterface} from '../../model/RequirementStatusModel';
 import {ServiceResponseInterface} from '../../model/service-response-interface';
+import {DocumentoRequerimientoModel} from '../../model/DocumentoRequerimientoModel';
+import {NzMessageService} from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-estudiante',
@@ -15,6 +17,8 @@ export class EstudianteComponent implements OnInit {
   dataSource: StudentModelInterface[] = [];
   requirementStatus: RequirementStatusModelInterface [] = [];
   servicioCompletoFlag: boolean = false;
+  carnetSelected: string = '';
+
 
   pagination: PaginationInterface = {
     totalElement: 0,
@@ -24,7 +28,7 @@ export class EstudianteComponent implements OnInit {
     totalPages: 0,
     content: 0
   };
-  constructor(private studentProvider: StudentDataService) {
+  constructor(private studentProvider: StudentDataService, private message: NzMessageService) {
     this.findAllStudentsByStatus();
   }
 
@@ -63,13 +67,35 @@ export class EstudianteComponent implements OnInit {
 
   showModal(due: string = 'IR13002'): void {
     this.isVisible = true;
-
+    this.carnetSelected = due;
     this.studentProvider.findAllEstadoRequerimientos(due).subscribe(
          (response: ServiceResponseInterface) => {
         this.requirementStatus = response.result;
         console.log('Datos de estado requerimiento ', this.requirementStatus);
       }
     );
+  }
+
+  onApproveDocument(due: string, requirementId: number): void {
+    this.studentProvider.approveDocument(due, requirementId).subscribe(
+      (response1: DocumentoRequerimientoModel) => {
+        console.log(response1);
+        this.message.create('success', `Documento Aprobado`);
+
+        this.studentProvider.findAllEstadoRequerimientos(due).subscribe(
+          (response2: ServiceResponseInterface) => {
+            this.requirementStatus = response2.result;
+            console.log('Datos de estado requerimiento ', this.requirementStatus);
+          }
+        );
+
+      }
+    , error => {
+
+        console.error('Error al aprobar un documento ', error);
+        this.message.create('error', `Error al intentar de aprobar un documento, error: ${error}`);
+      }
+      );
   }
 }
 

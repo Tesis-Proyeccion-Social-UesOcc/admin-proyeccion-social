@@ -12,7 +12,7 @@ export class ConfigService {
   constructor(private httpClient: HttpClient) { }
 
   getProjets(page = 0, size = 10): Observable<PaginationInterface> {
-    return this.httpClient.get<PaginationInterface>(` https://chatbot-proyeccion-social-uefy.rj.r.appspot.com/proyeccion-social/api/proyectos?page=${page}&size=${size}`);
+    return this.httpClient.get<PaginationInterface>(`https://chatbot-proyeccion-social-uefy.rj.r.appspot.com/proyeccion-social/api/proyectos?page=${page}&size=${size}`);
   }
 
 

@@ -1,0 +1,21 @@
+runtime: python27
+api_version: 1
+threadsafe: true
+handlers:
+  - url: "/.*"
+    static_files: dist/proyeccion-social-client/index.html
+    upload: dist/proyeccion-social-client/index.html
+  - url: "/.*"
+    static_dir: dist/proyeccion-social-client
+
+skip_files:
+  - e2e/
+  - node_modules/
+  - src/
+  - coverage
+  - ^(.*/)?\..*$
+  - ^(.*/)?.*\.json$
+  - ^(.*/)?.*\.md$
+  - ^(.*/)?.*\.yaml$
+  - ^LICENSE
+  - .idea

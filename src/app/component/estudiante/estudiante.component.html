@@ -43,7 +43,7 @@
         <td>{{ data.requerimiento.documento.nombre }}</td>
         <td>{{ data.entregado == true ?  data.fechaEntrega: 'No Entregado'}} </td>
         <td>{{ data.aprobado == true  ?  data.fechaAprobacion  : 'No Aprobado'}} </td>
-       <td><button nz-button nzType="danger" nzShape="round" [disabled]="data.aprobado">Aprobar</button> </td>
+       <td><button nz-button nzType="danger" nzShape="round" [disabled]="data.aprobado" (click)="onApproveDocument(carnetSelected,data.requerimiento.id)">Aprobar</button> </td>
       </tr>
       </tbody>
     </nz-table>
