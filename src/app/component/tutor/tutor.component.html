@@ -1,0 +1,28 @@
+<div class="container">
+  <li class="flex-item">
+    <div nz-col nzXs="40" nzSm="8" nzMd="12" nzLg="16" nzXl="20">
+      <div class="inner-box">
+        <nz-card nzHoverable style="width:60%" [nzCover]="coverTemplate">
+          <nz-card-meta nzTitle="Tutor Interno" nzDescription="Docente Universitario"></nz-card-meta>
+        </nz-card>
+        <ng-template #coverTemplate>
+          <img alt="example" src="http://maxherrador.com/wp-content/uploads/2016/06/logo-libreria-ues.jpg"/>
+        </ng-template>
+      </div>
+    </div>
+  </li>
+  <li class="flex-item">
+    <div nz-col nzXs="40" nzSm="8" nzMd="12" nzLg="16" nzXl="20">
+      <div class="inner-box">
+        <nz-card nzHoverable style="width:60%" [nzCover]="coverTemplate2" class="item">
+          <nz-card-meta nzTitle="Tutor Externo" nzDescription="Empleado de Empresa"></nz-card-meta>
+        </nz-card>
+        <ng-template #coverTemplate2>
+          <img alt="example2"
+               src="https://cdn.corporatefinanceinstitute.com/assets/privately-held-company-1024x683.jpeg"/>
+        </ng-template>
+      </div>
+    </div>
+  </li>
+</div>
+

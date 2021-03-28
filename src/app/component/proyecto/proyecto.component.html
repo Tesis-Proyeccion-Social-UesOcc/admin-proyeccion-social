@@ -225,8 +225,8 @@
 
 <nz-modal [(nzVisible)]="isVisibleCompleted" nzTitle="Integrantes del proyecto" (nzOnCancel)="handleCancel()"
           (nzOnOk)="handleOk() ">
-  <ng-container *nzModalContent>
-    <nz-table>
+  <ng-container *nzModalContent >
+    <nz-table class="container">
       <thead>
       <tr>
         <th nzWidth="30%">DUE</th>
@@ -242,16 +242,11 @@
         <td>{{ data.servicioCompleto ? 'Completo': 'Incompleto'}}</td>
         <td>
           <nz-upload
-          nzType="drag"
-          [nzMultiple]="true"
-          nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-          (nzChange)="handleChange($event)"
-        >
-          <p class="ant-upload-drag-icon">
-            <i nz-icon nzType="inbox"></i>
-          </p>
-          <p class="ant-upload-text">Click or drag file to this area to upload</p>
-        </nz-upload>
+            nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76?ab=cd"
+            (nzChange)="handleChange2($event)"
+          >
+            <button nz-button><i nz-icon nzType="upload"></i>Click to Upload</button>
+          </nz-upload>
         </td>
       </tr>
       </tbody>

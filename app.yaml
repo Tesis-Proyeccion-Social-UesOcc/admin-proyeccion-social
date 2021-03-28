@@ -2,11 +2,19 @@ runtime: python27
 api_version: 1
 threadsafe: true
 handlers:
-  - url: "/.*"
+  - url: /
+    secure: always
     static_files: dist/proyeccion-social-client/index.html
     upload: dist/proyeccion-social-client/index.html
-  - url: "/.*"
+  - url: /.*
     static_dir: dist/proyeccion-social-client
+  - url: /(.*\.(css|gif|png|jpg|ico|js|html))
+    static_files: dist/proyeccion-social-client/\1
+    upload: dist/proyeccion-social-client/(.*\.(css|gif|png|jpg|ico|js|html))
+  - url: /(.*)
+    secure: always
+    static_files: dist/proyeccion-social-client/index.html
+    upload: dist/proyeccion-social-client/index.html
 
 skip_files:
   - e2e/

@@ -19,8 +19,10 @@
     <td>{{ data.horasProgreso}} horas</td>
     <td>
       <div style="padding: 8px 8px 0px">
-        <i nz-button nz-icon [nzType]="'eye'" [nzTheme]="'fill'" class="settings" (click)="showModal(data.carnet)"></i>
-        <i nz-button nz-icon [nzType]="'setting'" [nzTheme]="'fill'" class="settings"></i>
+        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="basic"
+                (click)="showModal(data.carnet)">
+          <mat-icon>visibility</mat-icon>
+        </button>
       </div>
     </td>
   </tr>
@@ -43,7 +45,12 @@
         <td>{{ data.requerimiento.documento.nombre }}</td>
         <td>{{ data.entregado == true ?  data.fechaEntrega: 'No Entregado'}} </td>
         <td>{{ data.aprobado == true  ?  data.fechaAprobacion  : 'No Aprobado'}} </td>
-       <td><button nz-button nzType="danger" nzShape="round" [disabled]="data.aprobado" (click)="onApproveDocument(carnetSelected,data.requerimiento.id)">Aprobar</button> </td>
+       <td>
+         <button nz-button nzType="primary" nzShape="round" [disabled]="data.aprobado"
+                 (click)="onApproveDocument(carnetSelected,data.requerimiento.id)">
+           {{data.entregado == true ? 'Aprobar':'Entregado'}}</button>
+
+       </td>
       </tr>
       </tbody>
     </nz-table>

@@ -3,9 +3,10 @@ import {ProjectModelInterface} from '../../model/project-model-interface';
 import {ProjectDataService} from '../../service/data/project-data.service';
 import {PaginationInterface} from '../../model/pagination-interface';
 import {StudentModelInterface} from '../../model/student-model-interface';
-import {ProjectRequestInterface} from '../../model/request/ProjectRequest';
 import {NzMessageService} from 'ng-zorro-antd/message';
-import {NzUploadChangeParam, NzUploadFile} from 'ng-zorro-antd/upload';
+import {NzUploadChangeParam, NzUploadFile, NzUploadXHRArgs} from 'ng-zorro-antd/upload';
+import {HttpClient} from '@angular/common/http';
+
 
 @Component({
   selector: 'app-proyecto',
@@ -33,7 +34,8 @@ export class ProyectoComponent implements OnInit {
   displayedColumns: string[] = ['id', 'nombre', 'duracion', 'interno', 'personal'];
   columnsToDisplay: string[] = this.displayedColumns.slice();
 
-  constructor(private projectProvider: ProjectDataService, private message: NzMessageService, private msg: NzMessageService) {
+  constructor(private projectProvider: ProjectDataService, private message: NzMessageService,
+              private msg: NzMessageService, private http: HttpClient) {
     this.projectProvider.getProjets(0, 5, 1).subscribe(
       (projects: PaginationInterface) => {
         this.pagination = projects;
@@ -46,6 +48,7 @@ export class ProyectoComponent implements OnInit {
   ngOnInit(): void {
 
   }
+
   showModal(id: number = 0): void {
     this.isVisible = true;
     this.getProjects(id);
@@ -70,7 +73,7 @@ export class ProyectoComponent implements OnInit {
 
   getProjects(idProject: number, status: number = 1): void {
     console.log('project id' + idProject);
-    this.dataSource.find(proyecto =>  {
+    this.dataSource.find(proyecto => {
       if (proyecto.id === idProject) {
         this.studentProject = proyecto.estudiantes;
       }
@@ -100,8 +103,9 @@ export class ProyectoComponent implements OnInit {
       }
     );
   }
+
   onRejectedProject(idProject: number): void {
-    this.projectProvider.changeStatusProject(idProject, 'Rechazado').subscribe( response => {
+    this.projectProvider.changeStatusProject(idProject, 'Rechazado').subscribe(response => {
       console.log('resultado guardar', response);
       this.getProjectByStatus(1);
       this.message.create('warning', `Se Rechazo el proyecto`);
@@ -112,7 +116,7 @@ export class ProyectoComponent implements OnInit {
   }
 
   onCompleteProject(idProject: number): void {
-    this.projectProvider.changeStatusProject(idProject, 'Completado').subscribe( response => {
+    this.projectProvider.changeStatusProject(idProject, 'Completado').subscribe(response => {
       console.log('resultado guardar', response);
       this.getProjectByStatus(2);
       this.message.create('success', `Se Completo el proyecto`);
@@ -123,7 +127,7 @@ export class ProyectoComponent implements OnInit {
   }
 
   onRetiredProject(idProject: number): void {
-    this.projectProvider.changeStatusProject(idProject, 'Retiro').subscribe( response => {
+    this.projectProvider.changeStatusProject(idProject, 'Retiro').subscribe(response => {
       console.log('resultado guardar', response);
       this.getProjectByStatus(3);
       this.message.create('warning', `Se dio de baja el proyecto`);
@@ -134,7 +138,7 @@ export class ProyectoComponent implements OnInit {
   }
 
   onApproveProject(idProject: number): void {
-    this.projectProvider.changeStatusProject(idProject, 'En_Proceso').subscribe( response => {
+    this.projectProvider.changeStatusProject(idProject, 'En_Proceso').subscribe(response => {
       console.log('resultado guardar', response);
       this.getProjectByStatus(1);
       this.message.create('success', `Se Aprobo el proyecto`);
@@ -145,7 +149,8 @@ export class ProyectoComponent implements OnInit {
   }
 
 
-  handleChange({ file, fileList }: NzUploadChangeParam): void {
+  handleChange({file, fileList}: NzUploadChangeParam): void {
+
     const status = file.status;
     if (status !== 'uploading') {
       console.log(file, fileList);
@@ -156,4 +161,32 @@ export class ProyectoComponent implements OnInit {
       this.msg.error(`${file.name} file upload failed.`);
     }
   }
+
+  handleChange2(info: NzUploadChangeParam): void {
+    if (info.file.status !== "uploading") {
+      console.log(info.file, info.fileList);
+    }
+  }
+  uploadFileName = '';
+
+  handleUpload = (item: any) => {
+    const formData = new FormData();
+    formData.append(item.name, item.file as any, this.uploadFileName);
+    this.http.post('https://jsonplaceholder.typicode.com/posts/', formData).subscribe(
+      res => {
+        console.log("success", res);
+        item.onSuccess(item.file);
+      },
+      (err) => {
+        item.onError(err, item.file);
+      }
+    );
+  }
+
+  beforeUpload = (file: NzUploadFile): boolean => {
+    this.uploadFileName = file.name;
+    return true;
+  }
+
 }
+

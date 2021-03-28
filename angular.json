@@ -133,7 +133,8 @@
           "configurations": {
             "production": {
               "devServerTarget": "proyeccion-social-client:serve:production",
-              "optimization": false,   // <--- change optimization to false
+              "optimization": false,
+              // <--- change optimization to false
               "outputHashing": "all",
               "sourceMap": false,
               "extractCss": true,

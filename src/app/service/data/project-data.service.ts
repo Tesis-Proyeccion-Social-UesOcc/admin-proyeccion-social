@@ -3,7 +3,6 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {PaginationInterface} from '../../model/pagination-interface';
 import {ServiceResponseInterface} from '../../model/service-response-interface';
-import {ProjectModelInterface} from '../../model/project-model-interface';
 import {ProjectRequestInterface} from '../../model/request/ProjectRequest';
 
 
@@ -12,7 +11,9 @@ import {ProjectRequestInterface} from '../../model/request/ProjectRequest';
 })
 export class ProjectDataService {
 
-  private domainLocal: string = 'https://chatbot-proyeccion-social-uefy.rj.r.appspot.com';
+  //private domainLocal: string = 'https://chatbot-proyeccion-social-uefy.rj.r.appspot.com';
+  private domainLocal = 'http://localhost:8080';
+
   constructor(private httpClient: HttpClient) { }
 
   getProjets(page = 0, size = 10, statusId: number = 1): Observable<PaginationInterface> {

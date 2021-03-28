@@ -11,7 +11,8 @@ import {DocumentoRequerimientoModel} from '../../model/DocumentoRequerimientoMod
 })
 export class StudentDataService {
 
-  private domainLocal: string = 'https://chatbot-proyeccion-social-uefy.rj.r.appspot.com';
+  //private domainLocal: string = 'https://chatbot-proyeccion-social-uefy.rj.r.appspot.com';
+  private domainLocal = 'http://localhost:8080';
   constructor(private httpClient: HttpClient) { }
 
   findAllStudents(page = 0, size = 10, flag = 'no'): Observable<PaginationInterface> {
