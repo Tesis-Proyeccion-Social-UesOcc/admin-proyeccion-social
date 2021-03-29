@@ -1,0 +1,48 @@
+<h1 class="mat-h1">Tutores Internos</h1>
+<nz-table #nzTable [nzData]="listOfDisplayData" nzTableLayout="fixed"
+          [nzPageSize]="5" >
+  <thead>
+  <tr>
+    <th nzCustomFilter>
+     Tutor
+      <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+        <i nz-icon nzType="search"></i>
+      </nz-filter-trigger>
+    </th>
+    <th>Departamento</th>
+    <th>Tipo Personal</th>
+    <th>Horario</th>
+    <th>Ubicacion</th>
+    <th>Acciones</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of nzTable.data">
+    <td> {{ data.nombre}} {{data.apellido}}</td>
+    <td>{{ data.departamento.nombre}} </td>
+    <td>{{ data.tipoPersonal.nombre}}</td>
+    <td>{{ data.personalEncargado ===null? 'No disponible': data.personalEncargado.horario}} </td>
+    <td>{{ data.personalEncargado ===null? 'No disponible': data.personalEncargado.ubicacion}}</td>
+    <td>
+      <div style="padding: 8px 8px 0px">
+        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="basic"
+                (click)="showModal(data.id)">
+          <mat-icon>visibility</mat-icon>
+        </button>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+<nz-pagination [nzPageIndex]="3" [nzTotal]="500" nzShowSizeChanger [nzPageSize]="10"></nz-pagination>
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <div class="ant-table-filter-dropdown">
+    <div class="search-box">
+      <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+      <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+        Search
+      </button>
+      <button nz-button nzSize="small" (click)="reset()">Reset</button>
+    </div>
+  </div>
+</nz-dropdown-menu>

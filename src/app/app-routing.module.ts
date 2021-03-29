@@ -4,6 +4,8 @@ import {MatNavComponent} from './mat-nav/mat-nav.component';
 import {ProyectoComponent} from './component/proyecto/proyecto.component';
 import {EstudianteComponent} from './component/estudiante/estudiante.component';
 import {TutorComponent} from './component/tutor/tutor.component';
+import {InternoComponent} from './component/tutor/interno/interno.component';
+import {ExternoComponent} from './component/tutor/externo/externo.component';
 
 const routes: Routes = [
   {
@@ -21,6 +23,14 @@ const routes: Routes = [
   {
     path: 'tutores',
     component: TutorComponent
+  },
+  {
+    path: 'tutores/interno',
+    component: InternoComponent
+  },
+  {
+    path: 'tutores/externo',
+    component: ExternoComponent
   }
 ];
 

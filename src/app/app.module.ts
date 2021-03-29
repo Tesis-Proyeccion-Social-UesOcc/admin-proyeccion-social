@@ -127,6 +127,8 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { EstudianteComponent } from './component/estudiante/estudiante.component';
 import {RouterModule} from '@angular/router';
 import { TutorComponent } from './component/tutor/tutor.component';
+import { InternoComponent } from './component/tutor/interno/interno.component';
+import { ExternoComponent } from './component/tutor/externo/externo.component';
 
 registerLocaleData(es);
 
@@ -145,7 +147,9 @@ export const routes =  [
     AgregarProyectoComponent,
     ProyectoDetalleComponent,
     EstudianteComponent,
-    TutorComponent
+    TutorComponent,
+    InternoComponent,
+    ExternoComponent
   ],
   imports: [
     FormsModule,

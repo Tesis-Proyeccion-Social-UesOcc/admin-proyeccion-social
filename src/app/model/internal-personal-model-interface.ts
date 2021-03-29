@@ -6,4 +6,18 @@ export interface InternalPersonalModelInterface {
   apellido: string;
   departamento: DepartamentInterface;
   descripcion: string;
+  tipoPersonal: TipoPersonalInteface;
+  personalEncargado: PersonalEncargadoInteface;
+}
+
+export interface TipoPersonalInteface {
+  id: number;
+  nombre: string;
+  descripcion: string;
+}
+
+export interface PersonalEncargadoInteface {
+  id: number;
+  horario: string;
+  ubicacion: string;
 }
