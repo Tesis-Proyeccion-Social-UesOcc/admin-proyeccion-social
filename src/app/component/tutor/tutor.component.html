@@ -1,28 +1,18 @@
-<div class="container">
-  <li class="flex-item">
-    <div nz-col nzXs="40" nzSm="8" nzMd="12" nzLg="16" nzXl="20">
-      <div class="inner-box">
-        <nz-card nzHoverable style="width:60%" [nzCover]="coverTemplate" (click)=onInterno()>
-          <nz-card-meta nzTitle="Tutor Interno" nzDescription="Docente Universitario" ></nz-card-meta>
-        </nz-card>
-        <ng-template #coverTemplate>
-          <img alt="example" src="http://maxherrador.com/wp-content/uploads/2016/06/logo-libreria-ues.jpg"/>
-        </ng-template>
+<div class="container" (click)=onInterno()>
+  <div class="containerRow">
+    <div class="containerSmall">
+      <img src="http://maxherrador.com/wp-content/uploads/2016/06/logo-libreria-ues.jpg" alt="" class="imgContainerLeft">
+      <div class="textContainer">
+        <strong>Tutor Interno</strong>
+        <p> Docente universitario </p>
       </div>
     </div>
-  </li>
-  <li class="flex-item">
-    <div nz-col nzXs="40" nzSm="8" nzMd="12" nzLg="16" nzXl="20">
-      <div class="inner-box">
-        <nz-card nzHoverable style="width:60%" [nzCover]="coverTemplate2" class="item"  (click)=onExterno()>
-          <nz-card-meta nzTitle="Tutor Externo" nzDescription="Empleado de Empresa"></nz-card-meta>
-        </nz-card>
-        <ng-template #coverTemplate2>
-          <img alt="example2"
-               src="https://cdn.corporatefinanceinstitute.com/assets/privately-held-company-1024x683.jpeg"/>
-        </ng-template>
+    <div class="containerSmall" (click)=onExterno()>
+      <img src="https://cdn.corporatefinanceinstitute.com/assets/privately-held-company-1024x683.jpeg" alt="" class="imgContainerRight">
+      <div class="textContainer">
+        <strong>Tutor Externo</strong>
+        <p> Empleado de empresa </p>
       </div>
     </div>
-  </li>
+  </div>
 </div>
-

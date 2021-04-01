@@ -1,34 +1,107 @@
 .container {
-  /* We first create a flex layout context */
-  display: flex;
-
-  /* Then we define the flow direction
-     and if we allow the items to wrap
-   * Remember this is the same as:
-   * flex-direction: row;
-   * flex-wrap: wrap;
-   */
-  flex-flow: row wrap;
-
-  /* Then we define how is distributed the remaining space */
-  justify-content: space-around;
-
-  padding: 0;
-  margin: 0;
-  list-style: none;
+  position: relative;
+  width: 100%;
+  min-height: 70vh;
+  font-size: 13px;
+  font-family: sans-serif;
 }
-.flex-item{
-  padding: 5px;
-  width: 50%;
-  height: 100%;
-  margin-top: 10px;
-  line-height: 150px;
-  color: white;
-  font-weight: bold;
-  font-size: 3em;
+
+.containerRow {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+}
+
+.containerSmall {
+  margin: 35px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+  height: 250px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  padding: 3rem;
+  box-shadow: 0 0 10px 0 rgba(85, 85, 85, 0.3);
+  transition: transform .5s ease-out;
+  flex-direction: column;
+}
+
+.containerSmall:hover {
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
+  transform: translateY(-30px);
+  cursor: pointer;
+}
+
+.imgContainerLeft {
+  top: 20px;
+  max-width: 80%;
+  max-height: 100%;
+  position: absolute;
+  object-fit: contain;
+}
+
+.imgContainerRight {
+  top: 50px;
+  max-width: 80%;
+  max-height: 100%;
+  position: absolute;
+  object-fit: contain;
+}
+
+.textContainer {
+  position: absolute;
+  bottom: 10px;
+}
+
+@media only screen and (max-width: 800px) {
+  .containerSmall {
+    width: 250px;
+    height: 225px;
+  }
+  .imgContainerLeft {
+    top: 17px;
+  }
+}
+
+@media only screen and (max-width: 750px) {
+  .containerSmall {
+    width: 200px;
+    height: 200px;
+  }
+  .imgContainerLeft {
+    top: 10px;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .containerRow {
+    flex-direction: column;
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  .containerSmall {
+    width: 135px;
+    height: 175px;
+  }
+  .imgContainerLeft {
+    top: 0px
+  }
+}
+
+@media only screen and (max-width: 250px) {
+  .containerSmall {
+    width: 125px;
+    height: 150px;
+  }
 }
 
 .item{
   justify-self: end;
 }
+
+
