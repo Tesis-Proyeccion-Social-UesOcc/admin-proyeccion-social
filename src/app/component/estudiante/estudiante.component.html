@@ -42,13 +42,13 @@
       </thead>
       <tbody>
       <tr *ngFor="let data of requirementStatus" class="editable-row">
-        <td>{{ data.requerimiento.documento.nombre }}</td>
+        <td>{{ data.documento }}</td>
         <td>{{ data.entregado == true ?  data.fechaEntrega: 'No Entregado'}} </td>
         <td>{{ data.aprobado == true  ?  data.fechaAprobacion  : 'No Aprobado'}} </td>
        <td>
-         <button nz-button nzType="primary" nzShape="round" [disabled]="data.aprobado"
-                 (click)="onApproveDocument(carnetSelected,data.requerimiento.id)">
-           {{data.entregado == true ? 'Aprobar':'Entregado'}}</button>
+         <button nz-button nzType="primary" nzShape="round" [disabled]="data.aprobado || servicioCompletoFlag"
+                 (click)="onApproveDocument(carnetSelected,data.id)">
+           {{data.entregado == true ? 'Aprobar':'Entregar'}}</button>
 
        </td>
       </tr>

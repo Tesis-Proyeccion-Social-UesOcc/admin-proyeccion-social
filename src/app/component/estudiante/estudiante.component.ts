@@ -18,6 +18,7 @@ export class EstudianteComponent implements OnInit {
   requirementStatus: RequirementStatusModelInterface [] = [];
   servicioCompletoFlag: boolean = false;
   carnetSelected: string = '';
+  button: boolean = false;
 
 
   pagination: PaginationInterface = {

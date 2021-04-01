@@ -2,7 +2,7 @@ import {RequirementModelInterface} from './RequirementModelInterface';
 
 export interface RequirementStatusModelInterface {
     id: number;
-    requerimiento: RequirementModelInterface;
+    documento: string;
     entregado: boolean;
     aprobado: boolean;
     fechaEntrega: Date;

@@ -7,6 +7,7 @@ import {ServiceResponseInterface} from '../../model/service-response-interface';
   providedIn: 'root'
 })
 export class PersonalInternoDataService {
+  //private domainLocal: string = 'https://chatbot-proyeccion-social-uefy.rj.r.appspot.com';
   private domainLocal = 'http://localhost:8080';
 
   constructor(private httpClient: HttpClient) { }
