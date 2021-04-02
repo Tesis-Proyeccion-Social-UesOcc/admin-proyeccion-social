@@ -1,0 +1,9 @@
+<button mat-icon-button (click)="showModal()" color="#512da8n">
+  <mat-icon class = "add">control_point</mat-icon>
+</button>
+<nz-modal [(nzVisible)]="isVisible" nzTitle="The first Modal" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <ng-container *nzModalContent>
+
+
+  </ng-container>
+</nz-modal>

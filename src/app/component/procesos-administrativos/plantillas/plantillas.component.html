@@ -1,7 +1,5 @@
 <h1 class="mat-h1">Plantillas</h1>
-<button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="#512da8n">
-  <mat-icon class = "add">control_point</mat-icon>
-</button>
+<app-agregar-plantilla></app-agregar-plantilla>
 <nz-table #nzTable [nzData]="listOfDisplayData" nzTableLayout="fixed"
           [nzPageSize]="5">
   <thead>
@@ -26,13 +24,16 @@
                 (click)="onClick(data.url)">
           <mat-icon class="watch">cloud_download</mat-icon>
         </button>
-        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="primary"
-                (click)="onClick(data.url)">
+        <input type="file" class="file-input"
+               (change)="onFileSelected($event)" #fileUpload>
+        <!--{{fileName || "No file uploaded yet."}}-->
+        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="{{fileName ? 'primary' :'basic'}}"
+                (click)="fileUpload.click()">
           <mat-icon class="watch">attach_file</mat-icon>
         </button>
         <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="basic"
         >
-          <mat-icon class="delete">delete</mat-icon>
+          <mat-icon class="delete" (click)="onDeleteTemplateById(data.idPlantilla)">delete</mat-icon>
         </button>
       </div>
     </td>
@@ -50,3 +51,5 @@
     </div>
   </div>
 </nz-dropdown-menu>
+
+

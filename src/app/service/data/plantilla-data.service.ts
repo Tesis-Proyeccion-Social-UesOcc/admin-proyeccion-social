@@ -16,4 +16,8 @@ export class PlantillaDataService {
   getTemplates(): Observable<ServiceResponseInterface> {
     return this.httpClient.get<ServiceResponseInterface>(` ${this.domainLocal}/proyeccion-social/api/plantillas`);
   }
+  deleteTemplateById(idTemplate: number): Observable<ServiceResponseInterface> {
+    console.log("eliminar template "+idTemplate);
+    return this.httpClient.delete<ServiceResponseInterface>(`${this.domainLocal}/proyeccion-social/api/plantillas/${idTemplate}`);
+  }
 }

@@ -131,6 +131,7 @@ import { InternoComponent } from './component/tutor/interno/interno.component';
 import { ExternoComponent } from './component/tutor/externo/externo.component';
 import { ProcesosAdministrativosComponent } from './component/procesos-administrativos/procesos-administrativos.component';
 import { PlantillasComponent } from './component/procesos-administrativos/plantillas/plantillas.component';
+import { AgregarPlantillaComponent } from './component/procesos-administrativos/plantillas/agregar-plantilla/agregar-plantilla.component';
 
 registerLocaleData(es);
 
@@ -153,7 +154,8 @@ export const routes =  [
     InternoComponent,
     ExternoComponent,
     ProcesosAdministrativosComponent,
-    PlantillasComponent
+    PlantillasComponent,
+    AgregarPlantillaComponent
   ],
   imports: [
     FormsModule,
