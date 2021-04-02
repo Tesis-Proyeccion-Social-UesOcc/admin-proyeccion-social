@@ -6,6 +6,8 @@ import {EstudianteComponent} from './component/estudiante/estudiante.component';
 import {TutorComponent} from './component/tutor/tutor.component';
 import {InternoComponent} from './component/tutor/interno/interno.component';
 import {ExternoComponent} from './component/tutor/externo/externo.component';
+import {ProcesosAdministrativosComponent} from './component/procesos-administrativos/procesos-administrativos.component';
+import {PlantillasComponent} from './component/procesos-administrativos/plantillas/plantillas.component';
 
 const routes: Routes = [
   {
@@ -31,6 +33,14 @@ const routes: Routes = [
   {
     path: 'tutores/externo',
     component: ExternoComponent
+  },
+  {
+    path: 'procesos-administrativos',
+    component: ProcesosAdministrativosComponent
+  },
+  {
+    path: 'procesos-administrativos/plantillas',
+    component: PlantillasComponent
   }
 ];
 

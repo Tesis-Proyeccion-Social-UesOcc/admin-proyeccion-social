@@ -129,6 +129,8 @@ import {RouterModule} from '@angular/router';
 import { TutorComponent } from './component/tutor/tutor.component';
 import { InternoComponent } from './component/tutor/interno/interno.component';
 import { ExternoComponent } from './component/tutor/externo/externo.component';
+import { ProcesosAdministrativosComponent } from './component/procesos-administrativos/procesos-administrativos.component';
+import { PlantillasComponent } from './component/procesos-administrativos/plantillas/plantillas.component';
 
 registerLocaleData(es);
 
@@ -149,7 +151,9 @@ export const routes =  [
     EstudianteComponent,
     TutorComponent,
     InternoComponent,
-    ExternoComponent
+    ExternoComponent,
+    ProcesosAdministrativosComponent,
+    PlantillasComponent
   ],
   imports: [
     FormsModule,

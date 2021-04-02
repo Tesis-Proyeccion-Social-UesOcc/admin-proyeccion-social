@@ -1,0 +1,52 @@
+<h1 class="mat-h1">Plantillas</h1>
+<button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="#512da8n">
+  <mat-icon class = "add">control_point</mat-icon>
+</button>
+<nz-table #nzTable [nzData]="listOfDisplayData" nzTableLayout="fixed"
+          [nzPageSize]="5">
+  <thead>
+  <tr>
+    <th nzCustomFilter>
+      Plantilla
+      <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+        <i nz-icon nzType="search"></i>
+      </nz-filter-trigger>
+    </th>
+    <th>Fecha de Creacion</th>
+    <th>Operaciones</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of nzTable.data">
+    <td> {{ data.nombre}} </td>
+    <td>{{ data.fechaDocumento}}</td>
+    <td>
+      <div style="padding: 8px 8px 0px">
+        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="primary"
+                (click)="onClick(data.url)">
+          <mat-icon class="watch">cloud_download</mat-icon>
+        </button>
+        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="primary"
+                (click)="onClick(data.url)">
+          <mat-icon class="watch">attach_file</mat-icon>
+        </button>
+        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="basic"
+        >
+          <mat-icon class="delete">delete</mat-icon>
+        </button>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <div class="ant-table-filter-dropdown">
+    <div class="search-box">
+      <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue"/>
+      <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+        Search
+      </button>
+      <button nz-button nzSize="small" (click)="reset()">Reset</button>
+    </div>
+  </div>
+</nz-dropdown-menu>

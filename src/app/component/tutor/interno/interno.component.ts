@@ -2,8 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {PersonalInternoDataService} from '../../../service/data/personal-interno-data.service';
 import {ServiceResponseInterface} from '../../../model/service-response-interface';
 import {InternalPersonalModelInterface} from '../../../model/internal-personal-model-interface';
-import {NzTableModule} from 'ng-zorro-antd/table';
-
 
 @Component({
   selector: 'app-interno',
@@ -14,9 +12,6 @@ export class InternoComponent implements OnInit {
   searchValue = '';
   visible = false;
   personal: InternalPersonalModelInterface [] = [];
-  listOfData: InternalPersonalModelInterface [] = [];
-
-
   listOfDisplayData: InternalPersonalModelInterface [] = [];
 
   constructor(private personalInternoProvider: PersonalInternoDataService) {
