@@ -2,8 +2,14 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+
+// @ts-ignore
 export const environment = {
-  production: false
+  production: false,
+  baseUrl: 'http://localhost:8080',
+  // baseUrl: ' 'https://chatbot-proyeccion-social-uefy.rj.r.appspot.com';
+ // baseUrl: 'https://api-dot-chatbot-proyeccion-social-uefy.rj.r.appspot.com',
+  toolTipColor: '#ff7961'
 };
 
 /*

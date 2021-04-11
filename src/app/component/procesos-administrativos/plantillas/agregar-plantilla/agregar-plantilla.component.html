@@ -1,9 +1,36 @@
 <button mat-icon-button (click)="showModal()" color="#512da8n">
-  <mat-icon class = "add">control_point</mat-icon>
+  <mat-icon class = "add" nz-tooltip nzTooltipTitle="Agregar plantilla"
+            nzTooltipColor="{{toolTipColor}}">control_point</mat-icon>
 </button>
-<nz-modal [(nzVisible)]="isVisible" nzTitle="The first Modal" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Cargar plantilla" (nzOnCancel)="handleCancel()" (nzOnOk)="submitForm()" nzOkText="Registrar" >
   <ng-container *nzModalContent>
+    <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+      <nz-form-item nz-row class="register-area">
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="plantilla" nzRequired
+                       nzTooltipTitle="Escriba el nombre de la plantilla">Nombre
+        </nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Porfavor ingrese el nombre de la plantilla">
+          <input rows="4" nz-input id="plantilla" formControlName="nombre"
+                  type="text"  placeholder="Nombre de Plantilla"/>
+        </nz-form-control>
+      </nz-form-item>
 
+      <nz-form-item nz-row class="register-area">
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="archivo" nzRequired
+                       nzTooltipTitle="Adjunte un archivo">
+        </nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Porfavor adjunte un archivo">
+          <input id="archivo" formControlName="file" type="file" class="file-input"
+                 (change)="onFileSelected($event)" #fileUpload [hidden]="true">
+          <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="{{fileName ? 'primary' :'basic'}}"
+                  (click)="fileUpload.click()" nz-tooltip nzTooltipTitle="Click para cargar una plantilla"
+                  nzTooltipColor="{{toolTipColor}}">
+            <mat-icon class="watch">attach_file</mat-icon>
+          </button>
+          {{fileName || "Archivo no cargado aun."}}
+        </nz-form-control>
+      </nz-form-item>
+    </form>
 
   </ng-container>
 </nz-modal>

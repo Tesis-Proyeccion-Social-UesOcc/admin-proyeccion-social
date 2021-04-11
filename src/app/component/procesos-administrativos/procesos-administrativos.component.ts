@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-procesos-administrativos',
@@ -8,6 +9,7 @@ import {Router} from '@angular/router';
 })
 export class ProcesosAdministrativosComponent implements OnInit {
 
+  toolTipColor = environment.toolTipColor;
   constructor(private router: Router) { }
 
   ngOnInit(): void {

@@ -43,3 +43,22 @@ button {
 nz-select {
   width: 200px;
 }
+
+
+.add {
+  color: #ff5131;
+}
+
+.approve {
+  color: #9b0000;
+}
+
+.deny {
+  color: #d50000;
+}
+
+.save  {
+  color: #fff;
+  background: #b71c1c!important;
+  border-color: #f05545!important;
+}

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {PersonalInternoDataService} from '../../../service/data/personal-interno-data.service';
 import {ServiceResponseInterface} from '../../../model/service-response-interface';
 import {InternalPersonalModelInterface} from '../../../model/internal-personal-model-interface';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-interno',
@@ -13,6 +14,7 @@ export class InternoComponent implements OnInit {
   visible = false;
   personal: InternalPersonalModelInterface [] = [];
   listOfDisplayData: InternalPersonalModelInterface [] = [];
+  toolTipColor = environment.toolTipColor;
 
   constructor(private personalInternoProvider: PersonalInternoDataService) {
     this.personalInternoProvider.getPersonal(1).subscribe(

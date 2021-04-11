@@ -1,8 +1,6 @@
-import {RequirementModelInterface} from './RequirementModelInterface';
-
 export interface RequirementStatusModelInterface {
-    id: number;
-    documento: string;
+    requerimientoId: number;
+    nombre: string;
     entregado: boolean;
     aprobado: boolean;
     fechaEntrega: Date;

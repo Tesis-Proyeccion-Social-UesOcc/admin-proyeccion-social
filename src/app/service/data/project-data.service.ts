@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {PaginationInterface} from '../../model/pagination-interface';
 import {ServiceResponseInterface} from '../../model/service-response-interface';
 import {ProjectRequestInterface} from '../../model/request/ProjectRequest';
+import {environment} from '../../../environments/environment';
 
 
 @Injectable({
@@ -12,8 +13,8 @@ import {ProjectRequestInterface} from '../../model/request/ProjectRequest';
 export class ProjectDataService {
 
   //private domainLocal: string = 'https://chatbot-proyeccion-social-uefy.rj.r.appspot.com';
-  private domainLocal = 'http://localhost:8080';
-
+  //private domainLocal = 'http://localhost:8080';
+  private domainLocal = environment.baseUrl;
   constructor(private httpClient: HttpClient) { }
 
   getProjets(page = 0, size = 10, statusId: number = 1): Observable<PaginationInterface> {

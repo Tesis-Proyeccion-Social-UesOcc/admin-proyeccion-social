@@ -21,19 +21,23 @@
     <td>
       <div style="padding: 8px 8px 0px">
         <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="primary"
-                (click)="onClick(data.url)">
+                (click)="onClick(data.url)" nz-tooltip nzTooltipTitle="Descargar plantilla"
+                nzTooltipColor="{{toolTipColor}}">
           <mat-icon class="watch">cloud_download</mat-icon>
         </button>
         <input type="file" class="file-input"
-               (change)="onFileSelected($event)" #fileUpload>
+            (change)="onFileSelected($event, data.idPlantilla)" #fileUpload>
         <!--{{fileName || "No file uploaded yet."}}-->
         <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="{{fileName ? 'primary' :'basic'}}"
-                (click)="fileUpload.click()">
+                 (click)="fileUpload.click()" nz-tooltip nzTooltipTitle="Actualizar plantilla"
+                nzTooltipColor="{{toolTipColor}}">
           <mat-icon class="watch">attach_file</mat-icon>
         </button>
         <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="basic"
         >
-          <mat-icon class="delete" (click)="onDeleteTemplateById(data.idPlantilla)">delete</mat-icon>
+          <mat-icon class="delete" (click)="onDeleteTemplateById(data.idPlantilla)"
+                    nz-tooltip nzTooltipTitle="Eliminar plantilla"
+                    nzTooltipColor="{{toolTipColor}}">delete</mat-icon>
         </button>
       </div>
     </td>
@@ -43,11 +47,11 @@
 <nz-dropdown-menu #menu="nzDropdownMenu">
   <div class="ant-table-filter-dropdown">
     <div class="search-box">
-      <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue"/>
+      <input type="text" nz-input placeholder="Buscar por nombre" [(ngModel)]="searchValue"/>
       <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
-        Search
+        Buscar
       </button>
-      <button nz-button nzSize="small" (click)="reset()">Reset</button>
+      <button nz-button nzSize="small" (click)="reset()">Limpiar</button>
     </div>
   </div>
 </nz-dropdown-menu>

@@ -1,5 +1,8 @@
-<button nz-button [nzType]="'primary'" (click)="showModal()"><span>Crear proyecto</span></button>
-<nz-modal [(nzVisible)]="isVisible" nzTitle="The first Modal" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+<button mat-icon-button (click)="showModal()" color="basic"  nz-tooltip nzTooltipTitle="Agregar Proyecto" nzTooltipColor="#ff7961">
+  <mat-icon class = "add">control_point</mat-icon>
+</button>
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Agregar Proyecto" (nzOnCancel)="handleCancel()"
+          (nzOnOk)="submitForm()" nzOkText="Guardar" class="save">
   <ng-container *nzModalContent>
     <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
       <nz-form-item nz-row class="register-area">
@@ -66,11 +69,6 @@
           </nz-form-control>
         </nz-form-item>
       </div>
-      <nz-form-item nz-row class="register-area">
-        <nz-form-control [nzSpan]="14" [nzOffset]="6">
-          <button nz-button nzType="primary">Registrar Proyecto</button>
-        </nz-form-control>
-      </nz-form-item>
     </form>
 
   </ng-container>

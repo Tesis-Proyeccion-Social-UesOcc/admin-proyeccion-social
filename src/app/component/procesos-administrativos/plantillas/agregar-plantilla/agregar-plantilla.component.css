@@ -1,3 +1,6 @@
+.file-input {
+  display: none;
+}
 .add {
   color: #ff5131;
 }
@@ -7,5 +10,8 @@
 }
 
 .edit {
+  color: #d50000;
+}
+.watch {
   color: #d50000;
 }

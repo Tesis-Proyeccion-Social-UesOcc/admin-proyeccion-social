@@ -1,3 +1,5 @@
+import {RequirementStatusModelInterface} from './RequirementStatusModel';
+
 interface ProjectStatus {
   id: number;
   status: string;
@@ -14,4 +16,5 @@ export interface ProjectModelInterface {
     fechaCreacion: Date;
     fechaModificacion: Date;
     status: ProjectStatus;
+    documentos: RequirementStatusModelInterface [];
 }

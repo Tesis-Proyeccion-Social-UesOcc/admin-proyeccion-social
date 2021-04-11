@@ -1,9 +1,12 @@
 <h1 class="mat-h1">Modulo de Estudiantes</h1>
 <br/>
-<nz-switch [ngModel]="true" [nzCheckedChildren]="checkedTemplate" [nzUnCheckedChildren]="unCheckedTemplate" (click)=" findAllStudentsByStatus()"></nz-switch>
+<nz-switch [ngModel]="true" [nzCheckedChildren]="checkedTemplate" [nzUnCheckedChildren]="unCheckedTemplate"
+           (click)=" findAllStudentsByStatus()"
+           nz-tooltip nzTooltipTitle="Cambia entre estudiantes con o sin servicio social completo"
+           nzTooltipColor="{{toolTipColor}}"></nz-switch>
 <ng-template #checkedTemplate><i nz-icon nzType="check"></i></ng-template>
 <ng-template #unCheckedTemplate><i nz-icon nzType="close"></i></ng-template>
-<nz-table>
+<nz-table [nzData]="['']">
   <thead>
   <tr>
     <th nzWidth="30%">DUE</th>
@@ -20,7 +23,8 @@
     <td>
       <div style="padding: 8px 8px 0px">
         <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="basic"
-                (click)="showModal(data.carnet)">
+                (click)="showModal(data.carnet)"  nz-tooltip nzTooltipTitle="Mas Informacion"
+                nzTooltipColor="{{toolTipColor}}">
           <mat-icon>visibility</mat-icon>
         </button>
       </div>
@@ -30,29 +34,43 @@
 </nz-table>
 
 <nz-modal calss="myModal" [(nzVisible)]="isVisible" nzTitle="Estados de requerimientos" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk() ">
-  <ng-container *nzModalContent>
-    <nz-table >
-      <thead>
-      <tr>
-        <th>Requerimiento</th>
-        <th>Entregado</th>
-        <th>Aprobado</th>
-        <th>Accion</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let data of requirementStatus" class="editable-row">
-        <td>{{ data.documento }}</td>
-        <td>{{ data.entregado == true ?  data.fechaEntrega: 'No Entregado'}} </td>
-        <td>{{ data.aprobado == true  ?  data.fechaAprobacion  : 'No Aprobado'}} </td>
-       <td>
-         <button nz-button nzType="primary" nzShape="round" [disabled]="data.aprobado || servicioCompletoFlag"
-                 (click)="onApproveDocument(carnetSelected,data.id)">
-           {{data.entregado == true ? 'Aprobar':'Entregar'}}</button>
+  <ng-container *nzModalContent >
+    <mat-accordion>
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false" *ngFor="let project of projects">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+        <h3> {{project.nombre}} </h3>
+          </mat-panel-title>
+          <mat-panel-description>
+            {{project.status}}  |  {{project.fechaCreacion}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <nz-table [nzData]="['']" >
+          <thead >
+          <tr>
+            <th>Requerimiento</th>
+            <th>Entregado</th>
+            <th>Aprobado</th>
+            <th>Accion</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let data of  project.documentos" class="editable-row">
+            <td>{{ data.nombre }}</td>
+            <td>{{ data.entregado == true ?  data.fechaEntrega: 'No Entregado'}} </td>
+            <td>{{ data.aprobado == true  ?  data.fechaAprobacion  : 'No Aprobado'}} </td>
+            <td>
+              <button nz-button nzType="primary" nzShape="round" [disabled]="data.aprobado || servicioCompletoFlag"
+                      (click)="onApproveDocument(carnetSelected, data.requerimientoId)">
+                {{data.entregado == true ? 'Aprobar':'Entregar'}}</button>
 
-       </td>
-      </tr>
-      </tbody>
-    </nz-table>
+            </td>
+          </tr>
+          </tbody>
+        </nz-table>
+      </mat-expansion-panel>
+    </mat-accordion>
+
   </ng-container>
 </nz-modal>

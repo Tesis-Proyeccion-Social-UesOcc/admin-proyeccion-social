@@ -6,6 +6,8 @@ import {RequirementStatusModelInterface} from '../../model/RequirementStatusMode
 import {ServiceResponseInterface} from '../../model/service-response-interface';
 import {DocumentoRequerimientoModel} from '../../model/DocumentoRequerimientoModel';
 import {NzMessageService} from 'ng-zorro-antd/message';
+import {environment} from '../../../environments/environment';
+import {ProjectModelInterface} from '../../model/project-model-interface';
 
 @Component({
   selector: 'app-estudiante',
@@ -16,10 +18,11 @@ export class EstudianteComponent implements OnInit {
   isVisible = false;
   dataSource: StudentModelInterface[] = [];
   requirementStatus: RequirementStatusModelInterface [] = [];
+  projects: ProjectModelInterface [] = [];
   servicioCompletoFlag: boolean = false;
   carnetSelected: string = '';
   button: boolean = false;
-
+  toolTipColor = environment.toolTipColor;
 
   pagination: PaginationInterface = {
     totalElement: 0,
@@ -29,6 +32,7 @@ export class EstudianteComponent implements OnInit {
     totalPages: 0,
     content: 0
   };
+  panelOpenState = false;
   constructor(private studentProvider: StudentDataService, private message: NzMessageService) {
     this.findAllStudentsByStatus();
   }
@@ -71,13 +75,24 @@ export class EstudianteComponent implements OnInit {
     this.carnetSelected = due;
     this.studentProvider.findAllEstadoRequerimientos(due).subscribe(
          (response: ServiceResponseInterface) => {
-        this.requirementStatus = response.result;
-        console.log('Datos de estado requerimiento ', this.requirementStatus);
+        this.projects = response.result;
+        console.log('Datos de estado requerimiento ', this.projects);
+        this.projects = this.projects.filter(
+          function (value, index, arr) {
+            if (value.documentos !== undefined){
+              return value.documentos.length > 0 ;
+            } else {
+              return value.documentos;
+            }
+          }
+        );
+        console.log('Proyecto filtrador',this.projects);
       }
     );
   }
 
   onApproveDocument(due: string, requirementId: number): void {
+    console.log(requirementId);
     this.studentProvider.approveDocument(due, requirementId).subscribe(
       (response1: DocumentoRequerimientoModel) => {
         console.log(response1);

@@ -1,13 +1,16 @@
 <div class="container" (click)=onInterno()>
   <div class="containerRow">
-    <div class="containerSmall">
-      <img src="http://maxherrador.com/wp-content/uploads/2016/06/logo-libreria-ues.jpg" alt="" class="imgContainerLeft">
+    <div class="containerSmall" nz-tooltip nzTooltipTitle="Has Click si deseas ir a la seccion de tutores internos"
+         nzTooltipColor="{{toolTipColor}}">
+      <img src="http://maxherrador.com/wp-content/uploads/2016/06/logo-libreria-ues.jpg"
+           alt="" class="imgContainerLeft" >
       <div class="textContainer">
         <strong>Tutor Interno</strong>
         <p> Docente universitario </p>
       </div>
     </div>
-    <div class="containerSmall" (click)=onExterno()>
+    <div class="containerSmall" (click)=onExterno()
+         nz-tooltip nzTooltipTitle="Has Click si deseas ir a la seccion de tutores externos"  nzTooltipColor="{{toolTipColor}}">
       <img src="https://cdn.corporatefinanceinstitute.com/assets/privately-held-company-1024x683.jpeg" alt="" class="imgContainerRight">
       <div class="textContainer">
         <strong>Tutor Externo</strong>

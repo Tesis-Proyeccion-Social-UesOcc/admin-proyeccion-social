@@ -1,12 +1,11 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {InternalPersonalModelInterface} from '../../../model/internal-personal-model-interface';
-import {PersonalInternoDataService} from '../../../service/data/personal-interno-data.service';
+import {Component, OnInit} from '@angular/core';
 import {ServiceResponseInterface} from '../../../model/service-response-interface';
 import {TemplatesModelInterface} from '../../../model/TemplatesModelInterface';
 import {PlantillaDataService} from '../../../service/data/plantilla-data.service';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {NzMessageService} from 'ng-zorro-antd/message';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-plantillas',
@@ -18,8 +17,11 @@ export class PlantillasComponent implements OnInit {
   visible = false;
   templates: TemplatesModelInterface [] = [];
   listOfDisplayData: TemplatesModelInterface [] = [];
-
+  serviceResponse: ServiceResponseInterface | undefined;
+  templateId: number = 0;
   fileName = '';
+  private fileUpload: any;
+  toolTipColor = environment.toolTipColor;
 
   constructor(private templateDataService: PlantillaDataService, private router: Router, private http: HttpClient,
               private message: NzMessageService) {
@@ -52,21 +54,35 @@ export class PlantillasComponent implements OnInit {
   }
 
 
-  onFileSelected(event: any) {
-
+  onFileSelected(event: any, idTemplate: number = 0) {
     const file:File = event.target.files[0];
-
+    let id =  idTemplate;
     if (file) {
 
       this.fileName = file.name;
       console.log(this.fileName);
       const formData = new FormData();
 
-      formData.append("thumbnail", file);
+      formData.append('file', file);
 
-      const upload$ = this.http.post("/api/thumbnail-upload", formData);
+      this.templateDataService.updateTemplate(id, formData).subscribe(
+        data => {
+          this.serviceResponse = data;
+          if (this.serviceResponse.code === '00'){
+            this.message.create('success', `Plantilla actualizada`);
+            this.templateDataService.getTemplates().subscribe(
+              (response: ServiceResponseInterface) => {
+                this.templates = response.result;
+                this.listOfDisplayData = [...this.templates];
+              }
+            );
+          } else {
+            this.message.create('error', `No se pudo actualizar la plantilla`);
+          }
+        });
+      //const upload$ = this.http.post("/api/thumbnail-upload", formData);
 
-      upload$.subscribe();
+      //upload$.subscribe();
     }
   }
   onDeleteTemplateById(idTemplate: number): void{
@@ -82,5 +98,9 @@ export class PlantillasComponent implements OnInit {
     });
     //reload
 
+  }
+  onTemplateId(id: number){
+    this.templateId = id;
+    this.fileUpload.click();
   }
 }

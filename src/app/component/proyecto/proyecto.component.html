@@ -11,7 +11,7 @@
       <span (click)="getProjectByStatus(1)">Por Aprobar</span>
     </ng-template>
     <div>
-      <nz-table>
+      <nz-table [nzData]="['']">
         <thead>
         <tr>
           <th nzWidth="30%">Proyecto</th>
@@ -35,15 +35,15 @@
             <div style="padding: 8px 8px 0px">
 
               <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="primary"
-                      (click)="onApproveProject(data.id)">
-                <mat-icon>done_outline</mat-icon>
+                      (click)="onApproveProject(data.id)"  nz-tooltip nzTooltipTitle="Aprobar Proyecto" nzTooltipColor="#ff7961">
+                <mat-icon class="approve">done_outline</mat-icon>
               </button>
               <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="warn"
-                      (click)="onRejectedProject(data.id)">
-                <mat-icon>cancel</mat-icon>
+                      (click)="onRejectedProject(data.id)"  nz-tooltip nzTooltipTitle="Rechazar Proyecto" nzTooltipColor="#ff7961">
+                <mat-icon class="deny">cancel</mat-icon>
               </button>
               <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="basic"
-                      (click)="showModal(data.id)">
+                      (click)="showModal(data.id)"  nz-tooltip nzTooltipTitle="Mas Informacion" nzTooltipColor="#ff7961">
                 <mat-icon>visibility</mat-icon>
               </button>
             </div>
@@ -61,7 +61,7 @@
       <span (click)="getProjectByStatus(2)">En Curso</span>
     </ng-template>
     <div>
-      <nz-table>
+      <nz-table [nzData]="['']">
         <thead>
         <tr>
           <th nzWidth="30%">Proyecto</th>
@@ -85,15 +85,15 @@
             <div style="padding: 8px 8px 0px">
 
               <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="primary"
-                      (click)=" onCompleteProject(data.id)">
-                <mat-icon>done_outline</mat-icon>
+                      (click)=" onCompleteProject(data.id)"  nz-tooltip nzTooltipTitle="Finalizar Proyecto" nzTooltipColor="#ff7961">
+                <mat-icon class="approve">done_outline</mat-icon>
               </button>
               <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="warn"
-                      (click)=" onRetiredProject(data.id)">
-                <mat-icon>cancel</mat-icon>
+                      (click)=" onRetiredProject(data.id)"  nz-tooltip nzTooltipTitle="Dar de baja el Proyecto" nzTooltipColor="#ff7961">
+                <mat-icon class="deny">cancel</mat-icon>
               </button>
               <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="basic"
-                      (click)="showModal(data.id)">
+                      (click)="showModal(data.id)"  nz-tooltip nzTooltipTitle="Mas Informacion" nzTooltipColor="#ff7961">
                 <mat-icon>visibility</mat-icon>
               </button>
             </div>
@@ -109,7 +109,7 @@
       <span (click)="getProjectByStatus(3)">Completados</span>
     </ng-template>
     <div>
-      <nz-table>
+      <nz-table [nzData]="['']">
         <thead>
         <tr>
           <th nzWidth="30%">Proyecto</th>
@@ -132,7 +132,7 @@
           <td>
             <div style="padding: 8px 8px 0px">
               <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="basic"
-                      (click)="showModalCompleted(data.id)">
+                      (click)="showModalCompleted(data.id)"  nz-tooltip nzTooltipTitle="Mas Informacion" nzTooltipColor="#ff7961">
                 <mat-icon>visibility</mat-icon>
               </button>
             </div>
@@ -148,7 +148,7 @@
       <span (click)="getProjectByStatus(4)">Rechazados</span>
     </ng-template>
     <div>
-      <nz-table>
+      <nz-table [nzData]="['']">
         <thead>
         <tr>
           <th nzWidth="30%">Proyecto</th>
@@ -171,7 +171,7 @@
           <td>
             <div style="padding: 8px 8px 0px">
               <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="basic"
-                      (click)="showModal(data.id)">
+                      (click)="showModal(data.id)"  nz-tooltip nzTooltipTitle="Mas Informacion" nzTooltipColor="#ff7961">
                 <mat-icon>visibility</mat-icon>
               </button>
             </div>
@@ -187,7 +187,7 @@
       <span (click)="getProjectByStatus(5)">Abandonados</span>
     </ng-template>
     <div>
-      <nz-table>
+      <nz-table [nzData]="['']">
         <thead>
         <tr>
           <th nzWidth="30%">Proyecto</th>
@@ -210,7 +210,7 @@
           <td>
             <div style="padding: 8px 8px 0px">
               <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="basic"
-                      (click)="showModal(data.id)">
+                      (click)="showModal(data.id)"  nz-tooltip nzTooltipTitle="Mas Informacion" nzTooltipColor="#ff7961">
                 <mat-icon>visibility</mat-icon>
               </button>
             </div>
@@ -257,7 +257,7 @@
 <nz-modal [(nzVisible)]="isVisible" nzTitle="Integrantes del proyecto" (nzOnCancel)="handleCancel()"
           (nzOnOk)="handleOk() ">
   <ng-container *nzModalContent>
-    <nz-table>
+    <nz-table [nzData]="['']">
       <thead>
       <tr>
         <th nzWidth="30%">DUE</th>
