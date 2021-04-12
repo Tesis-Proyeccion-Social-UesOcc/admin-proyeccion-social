@@ -1,5 +1,5 @@
 export interface RequirementStatusModelInterface {
-    requerimientoId: number;
+    idRequerimiento: number;
     nombre: string;
     entregado: boolean;
     aprobado: boolean;

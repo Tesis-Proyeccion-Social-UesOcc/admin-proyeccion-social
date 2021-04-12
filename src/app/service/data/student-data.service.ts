@@ -23,7 +23,7 @@ export class StudentDataService {
   findAllEstadoRequerimientos(due: string): Observable<ServiceResponseInterface> {
     return this.httpClient.get<ServiceResponseInterface>(` ${this.domainLocal}/proyeccion-social/api/estudiantes/${due}/proyectos/estadoRequerimiento`);
   }
-  approveDocument(due: string, requirementId: number): Observable<DocumentoRequerimientoModel> {
+  approveDocument(due: number, requirementId: number): Observable<DocumentoRequerimientoModel> {
     return this.httpClient.post<DocumentoRequerimientoModel >(` ${this.domainLocal}/proyeccion-social/api/estudiantes/${due}/documentos/${requirementId}`, null);
   }
 }

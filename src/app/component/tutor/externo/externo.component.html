@@ -1,1 +1,53 @@
-<p>externo works!</p>
+<h1 class="mat-h1">Tutores Externos</h1>
+<button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="#512da8n">
+  <mat-icon class = "add" nz-tooltip nzTooltipTitle="Agregar un nuevo tutor externo"
+            nzTooltipColor="{{toolTipColor}}">control_point</mat-icon>
+</button>
+<nz-table #nzTable [nzData]="listOfDisplayData" nzTableLayout="fixed"
+          [nzPageSize]="5" >
+  <thead>
+  <tr>
+    <th nzCustomFilter>
+      Tutor
+      <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+        <i nz-icon nzType="search"></i>
+      </nz-filter-trigger>
+    </th>
+    <th>Cargo</th>
+    <th>Acciones</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of nzTable.data">
+    <td> {{ data.nombre}} {{data.apellido}}</td>
+    <td>{{ data.descripcion}}</td>
+    <td>
+      <div style="padding: 8px 8px 0px">
+        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="primary"
+                (click)="showModal(data.id)"  nz-tooltip nzTooltipTitle="Editar registro"
+                nzTooltipColor="{{toolTipColor}}">
+          <mat-icon class="edit">edit</mat-icon>
+        </button>
+        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="basic"
+                (click)="showModal(data.id)"  nz-tooltip nzTooltipTitle="Eliminar registro de tutor interno"
+                nzTooltipColor="{{toolTipColor}}">
+          <mat-icon class="delete">delete</mat-icon>
+        </button>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <div class="ant-table-filter-dropdown">
+    <div class="search-box">
+      <input type="text" nz-input placeholder="Buscar por nombre" [(ngModel)]="searchValue" />
+      <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+        Buscar
+      </button>
+      <button nz-button nzSize="small" (click)="reset()"
+              nz-tooltip nzTooltipTitle="Limpiar busqueda por nombre"
+              nzTooltipColor="{{toolTipColor}}">Limpiar</button>
+    </div>
+  </div>
+</nz-dropdown-menu>

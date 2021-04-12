@@ -38,7 +38,7 @@
     <mat-accordion>
       <mat-expansion-panel (opened)="panelOpenState = true"
                            (closed)="panelOpenState = false" *ngFor="let project of projects">
-        <mat-expansion-panel-header>
+        <mat-expansion-panel-header (click)="onSaveProjectId(project.id)">
           <mat-panel-title>
         <h3> {{project.nombre}} </h3>
           </mat-panel-title>
@@ -62,7 +62,7 @@
             <td>{{ data.aprobado == true  ?  data.fechaAprobacion  : 'No Aprobado'}} </td>
             <td>
               <button nz-button nzType="primary" nzShape="round" [disabled]="data.aprobado || servicioCompletoFlag"
-                      (click)="onApproveDocument(carnetSelected, data.requerimientoId)">
+                      (click)="onApproveDocument(projectIdSelected, data.idRequerimiento, carnetSelected)">
                 {{data.entregado == true ? 'Aprobar':'Entregar'}}</button>
 
             </td>

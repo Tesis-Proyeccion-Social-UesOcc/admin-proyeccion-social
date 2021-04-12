@@ -17,4 +17,8 @@ export class PersonalInternoDataService {
   getPersonal(idTipoPersonal: number = 0): Observable<ServiceResponseInterface> {
     return this.httpClient.get<ServiceResponseInterface>(` ${this.domainLocal}/proyeccion-social/api/personal/findByIdTipoPersonal/${idTipoPersonal}`);
   }
+
+  getPersonalAll(idTipoPersonal: number = 0): Observable<ServiceResponseInterface> {
+    return this.httpClient.get<ServiceResponseInterface>(` ${this.domainLocal}/proyeccion-social/api/personal?interno=${idTipoPersonal}`);
+  }
 }

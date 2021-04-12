@@ -23,6 +23,7 @@ export class EstudianteComponent implements OnInit {
   carnetSelected: string = '';
   button: boolean = false;
   toolTipColor = environment.toolTipColor;
+  projectIdSelected: number = 0;
 
   pagination: PaginationInterface = {
     totalElement: 0,
@@ -91,9 +92,9 @@ export class EstudianteComponent implements OnInit {
     );
   }
 
-  onApproveDocument(due: string, requirementId: number): void {
-    console.log(requirementId);
-    this.studentProvider.approveDocument(due, requirementId).subscribe(
+  onApproveDocument(projectId: number, requirementId: number, due: string): void {
+    console.log('idRequerimiento ' + requirementId);
+    this.studentProvider.approveDocument(projectId, requirementId).subscribe(
       (response1: DocumentoRequerimientoModel) => {
         console.log(response1);
         this.message.create('success', `Documento Aprobado`);
@@ -113,6 +114,8 @@ export class EstudianteComponent implements OnInit {
       }
       );
   }
-
+  onSaveProjectId(id: number){
+     this.projectIdSelected = id;
+  }
 }
 
