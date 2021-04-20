@@ -5,4 +5,5 @@ export interface RequirementStatusModelInterface {
     aprobado: boolean;
     fechaEntrega: Date;
     fechaAprobacion: Date;
+    proyectoEstudianteId: number;
 }

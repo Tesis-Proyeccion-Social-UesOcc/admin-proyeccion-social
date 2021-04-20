@@ -62,7 +62,7 @@
             <td>{{ data.aprobado == true  ?  data.fechaAprobacion  : 'No Aprobado'}} </td>
             <td>
               <button nz-button nzType="primary" nzShape="round" [disabled]="data.aprobado || servicioCompletoFlag"
-                      (click)="onApproveDocument(projectIdSelected, data.idRequerimiento, carnetSelected)">
+                      (click)="onApproveDocument(data.proyectoEstudianteId, data.idRequerimiento, carnetSelected)">
                 {{data.entregado == true ? 'Aprobar':'Entregar'}}</button>
 
             </td>

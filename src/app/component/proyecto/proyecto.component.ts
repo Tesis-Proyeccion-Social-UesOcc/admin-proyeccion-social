@@ -6,6 +6,7 @@ import {StudentModelInterface} from '../../model/student-model-interface';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzUploadChangeParam, NzUploadFile, NzUploadXHRArgs} from 'ng-zorro-antd/upload';
 import {HttpClient} from '@angular/common/http';
+import {ChangeStatusProjectInterface} from '../../model/ChangeStatusProjectInterface';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class ProyectoComponent implements OnInit {
   array = [1, 2, 3, 4];
   uploading = false;
   fileList: NzUploadFile[] = [];
-
+  changeStatusRequest: ChangeStatusProjectInterface | undefined;
   dataSource: ProjectModelInterface[] = [];
   studentProject: StudentModelInterface [] = [];
   isVisible = false;
@@ -105,7 +106,13 @@ export class ProyectoComponent implements OnInit {
   }
 
   onRejectedProject(idProject: number): void {
-    this.projectProvider.changeStatusProject(idProject, 'Rechazado').subscribe(response => {
+
+    this.changeStatusRequest = {
+      idProyecto: idProject,
+      status: 'RECHAZADO'
+    };
+
+    this.projectProvider.changeStatusProject(this.changeStatusRequest).subscribe(response => {
       console.log('resultado guardar', response);
       this.getProjectByStatus(1);
       this.message.create('warning', `Se Rechazo el proyecto`);
@@ -116,7 +123,12 @@ export class ProyectoComponent implements OnInit {
   }
 
   onCompleteProject(idProject: number): void {
-    this.projectProvider.changeStatusProject(idProject, 'Completado').subscribe(response => {
+    this.changeStatusRequest = {
+      idProyecto: idProject,
+      status: 'COMPLETADO'
+    };
+
+    this.projectProvider.changeStatusProject(this.changeStatusRequest).subscribe(response => {
       console.log('resultado guardar', response);
       this.getProjectByStatus(2);
       this.message.create('success', `Se Completo el proyecto`);
@@ -127,7 +139,13 @@ export class ProyectoComponent implements OnInit {
   }
 
   onRetiredProject(idProject: number): void {
-    this.projectProvider.changeStatusProject(idProject, 'Retiro').subscribe(response => {
+
+    this.changeStatusRequest = {
+      idProyecto: idProject,
+      status: 'RETIRO'
+    };
+
+    this.projectProvider.changeStatusProject(this.changeStatusRequest).subscribe(response => {
       console.log('resultado guardar', response);
       this.getProjectByStatus(3);
       this.message.create('warning', `Se dio de baja el proyecto`);
@@ -138,7 +156,13 @@ export class ProyectoComponent implements OnInit {
   }
 
   onApproveProject(idProject: number): void {
-    this.projectProvider.changeStatusProject(idProject, 'En_Proceso').subscribe(response => {
+
+    this.changeStatusRequest = {
+      idProyecto: idProject,
+      status: 'APROBADO'
+    };
+
+    this.projectProvider.changeStatusProject(this.changeStatusRequest).subscribe(response => {
       console.log('resultado guardar', response);
       this.getProjectByStatus(1);
       this.message.create('success', `Se Aprobo el proyecto`);
@@ -163,7 +187,7 @@ export class ProyectoComponent implements OnInit {
   }
 
   handleChange2(info: NzUploadChangeParam): void {
-    if (info.file.status !== "uploading") {
+    if (info.file.status !== 'uploading') {
       console.log(info.file, info.fileList);
     }
   }
@@ -174,19 +198,19 @@ export class ProyectoComponent implements OnInit {
     formData.append(item.name, item.file as any, this.uploadFileName);
     this.http.post('https://jsonplaceholder.typicode.com/posts/', formData).subscribe(
       res => {
-        console.log("success", res);
+        console.log('success', res);
         item.onSuccess(item.file);
       },
       (err) => {
         item.onError(err, item.file);
       }
     );
-  }
+  };
 
   beforeUpload = (file: NzUploadFile): boolean => {
     this.uploadFileName = file.name;
     return true;
-  }
+  };
 
 }
 

@@ -6,8 +6,8 @@
 // @ts-ignore
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:8080',
-  // baseUrl: ' 'https://chatbot-proyeccion-social-uefy.rj.r.appspot.com';
+  //baseUrl: 'http://localhost:8080',
+  baseUrl: 'https://chatbot-proyeccion-social-uefy.rj.r.appspot.com',
  // baseUrl: 'https://api-dot-chatbot-proyeccion-social-uefy.rj.r.appspot.com',
   toolTipColor: '#ff7961'
 };

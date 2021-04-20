@@ -72,8 +72,7 @@ export class EstudianteComponent implements OnInit {
 
 
   showModal(due: string = 'IR13002'): void {
-    this.isVisible = true;
-    this.carnetSelected = due;
+
     this.studentProvider.findAllEstadoRequerimientos(due).subscribe(
          (response: ServiceResponseInterface) => {
         this.projects = response.result;
@@ -90,6 +89,13 @@ export class EstudianteComponent implements OnInit {
         console.log('Proyecto filtrador',this.projects);
       }
     );
+    if (this.projects.length > 0){
+      console.log(this.projects);
+      this.isVisible = true;
+      this.carnetSelected = due;
+    } else {
+      this.message.create('error', `No hay documentos por revisar, ya que no hay proyectos en estado PENDIENTE`);
+    }
   }
 
   onApproveDocument(projectId: number, requirementId: number, due: string): void {
@@ -98,14 +104,6 @@ export class EstudianteComponent implements OnInit {
       (response1: DocumentoRequerimientoModel) => {
         console.log(response1);
         this.message.create('success', `Documento Aprobado`);
-
-        this.studentProvider.findAllEstadoRequerimientos(due).subscribe(
-          (response2: ServiceResponseInterface) => {
-            this.requirementStatus = response2.result;
-            console.log('Datos de estado requerimiento ', this.requirementStatus);
-          }
-        );
-
       }
     , error => {
 
@@ -113,6 +111,7 @@ export class EstudianteComponent implements OnInit {
         this.message.create('error', `Error al intentar de aprobar un documento, error: ${error}`);
       }
       );
+    this.showModal(due);
   }
   onSaveProjectId(id: number){
      this.projectIdSelected = id;

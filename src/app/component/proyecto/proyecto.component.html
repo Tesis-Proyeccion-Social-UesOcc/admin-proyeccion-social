@@ -245,7 +245,7 @@
             nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76?ab=cd"
             (nzChange)="handleChange2($event)"
           >
-            <button nz-button><i nz-icon nzType="upload"></i>Click to Upload</button>
+            <button nz-button><i nz-icon nzType="upload"></i>Cargar Certificado</button>
           </nz-upload>
         </td>
       </tr>
@@ -263,6 +263,7 @@
         <th nzWidth="30%">DUE</th>
         <th>Horas de progreso</th>
         <th>Servicio completo</th>
+        <th>Estado</th>
       </tr>
       </thead>
       <tbody>
@@ -270,6 +271,7 @@
         <td>{{ data.carnet }}</td>
         <td>{{ data.horasProgreso }}</td>
         <td>{{ data.servicioCompleto ? 'Completo': 'Incompleto'}}</td>
+        <td>{{ data.active ? 'Activo': 'Retirado'}}</td>
       </tr>
       </tbody>
     </nz-table>

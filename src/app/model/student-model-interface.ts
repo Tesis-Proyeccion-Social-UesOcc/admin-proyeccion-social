@@ -3,4 +3,5 @@ export interface StudentModelInterface {
     horasProgreso: number;
     servicioCompleto: boolean;
     porcentaje: any;
+    active: boolean;
 }
